@@ -2,37 +2,34 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:get/get.dart';
-import 'package:secur/components/custom_bottom_navbar.dart';
 import 'package:secur/services/barcode_scan.dart';
+import 'package:secur/themes/theme.dart';
 
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: buildFloatingActionButton(context),
-      bottomNavigationBar: CustomBottomNavBar(),
-      body: homeBody(),
+      body: homeBody(context),
+      appBar: appBar(context),
     );
   }
 }
 
-Widget homeBody() => SafeArea(
+Widget appBar(context) => AppBar(
+      title: RichText(
+        text: TextSpan(style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, fontFamily: "Circular-Std",), children: [
+          TextSpan(text: 'Sec', style: TextStyle(color: neonGreen)),
+          TextSpan(text: 'ur', style: TextStyle(color: Colors.white))
+        ]),
+      ),
+    );
+
+Widget homeBody(context) => SafeArea(
       child: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              margin: EdgeInsets.only(top: 20, left: 20),
-              child: Text(
-                'Secur',
-                style: TextStyle(
-                  color: Colors.teal,
-                  fontSize: 50,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            )
           ],
         ),
         // TODO : Add  BLoc
