@@ -11,7 +11,10 @@ import 'package:supercharged/supercharged.dart';
 Future scanBarcode() async {
   try {
     ScanResult scanResult = await BarcodeScanner.scan();
-    totpBuild(scanResult.rawContent);
+    var totp = totpBuild(scanResult.rawContent);
+    if (totp != null) {
+      _showErrorSnackbar("The QR code that you scanned was invalid.");
+    }
   } on PlatformException catch (e) {
     if (e.code == BarcodeScanner.cameraAccessDenied) {
       _showErrorSnackbar('Grant camera access to proceed');
@@ -25,20 +28,21 @@ Future scanBarcode() async {
 }
 
 void _showErrorSnackbar(String error) {
+  navigator.pop();
   Get.snackbar(
     'There seems to be a problem 😗',
     error,
     barBlur: 100,
     colorText: Colors.black87,
     icon: Icon(Icons.error_outline, color: Colors.red),
-    animationDuration: Duration(milliseconds: 500),
-    backgroundColor: CupertinoColors.white,
+    animationDuration: Duration(milliseconds: 1000),
+    backgroundColor: Colors.white,
     duration: Duration(seconds: 3),
     margin: EdgeInsets.only(top: 10),
-    borderRadius: 20,
-    maxWidth: 360,
+    borderRadius: 10,
+    maxWidth: 420,
     isDismissible: true,
-    shouldIconPulse: true,
+    shouldIconPulse: false,
     snackPosition: SnackPosition.BOTTOM,
   );
 }

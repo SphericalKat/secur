@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:get/get.dart';
 import 'package:secur/services/barcode_scan.dart';
 
 class Home extends StatelessWidget {
@@ -73,6 +74,24 @@ void _bottomSheet(context) {
             ListTile(
               leading: Icon(MaterialCommunityIcons.keyboard),
               title: Text("Enter a provided key"),
+              onTap: () {
+                navigator.pop();
+                Get.snackbar(
+                  'TODO',
+                  'To be implemented',
+                  barBlur: 0.5,
+                  snackPosition: SnackPosition.BOTTOM,
+                  colorText: Colors.black87,
+                  icon: Icon(Icons.error_outline, color: Colors.red),
+                  animationDuration: Duration(milliseconds: 500),
+                  backgroundColor: Colors.white,
+                  duration: Duration(seconds: 3),
+                  borderRadius: 10,
+                  maxWidth: 420,
+                  isDismissible: true,
+                  shouldIconPulse: false,
+                );
+              },
             ),
           ],
         ),
