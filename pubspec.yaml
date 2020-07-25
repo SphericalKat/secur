@@ -31,6 +31,8 @@ dependencies:
   supercharged: ^1.7.0
   hive: 1.4.1+1
   hive_flutter: 0.3.0+2
+  countdown: ^0.1.0
+  percent_indicator: ^2.1.5
 
   cupertino_icons: ^0.1.3
 
