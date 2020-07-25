@@ -1,12 +1,16 @@
+import 'dart:convert';
+
 import 'package:dart_otp/dart_otp.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
+import 'package:secur/src/services/barcode_scan.dart';
+
+part 'securtotp.g.dart';
 
 @HiveType(typeId: 0)
 class SecurTOTP extends HiveObject {
-
   @HiveField(0)
-  final OTPAlgorithm algorithm;
+  final String algorithm;
 
   @HiveField(1)
   final int digits;
@@ -22,14 +26,29 @@ class SecurTOTP extends HiveObject {
 
   SecurTOTP(
       {@required this.secret,
-      this.algorithm = OTPAlgorithm.SHA1,
+      this.algorithm = "SHA1",
       this.digits = 6,
       this.interval = 30,
       this.issuer = "Generic Issuer"});
 
+  SecurTOTP.fromJson(Map<String, dynamic> json)
+      : algorithm = json['algorithm'],
+        digits = json['digits'],
+        interval = json['interval'],
+        secret = json['secret'],
+        issuer = json['issuer'];
+
+  Map<String, dynamic> toJson() => {
+        'algorithm': algorithm.toString(),
+        'digits': digits,
+        'interval': interval,
+        'secret': secret,
+        'issuer': issuer,
+      };
+
   String getTotp() {
     return TOTP(
-      algorithm: algorithm,
+      algorithm: getAlgorithm(algorithm),
       digits: digits,
       interval: interval,
       secret: secret,

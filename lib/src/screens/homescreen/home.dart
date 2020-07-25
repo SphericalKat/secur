@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:get/get.dart';
+import 'package:secur/src/controllers/totp_controller.dart';
 import 'package:secur/src/services/barcode_scan.dart';
 
 class Home extends StatelessWidget {
@@ -30,18 +31,26 @@ Widget appBar(context) => AppBar(
               TextSpan(text: 'ur', style: TextStyle(color: Colors.white))
             ]),
       ),
-      shadowColor: Theme.of(context).primaryColor,
       centerTitle: true,
     );
 
 Widget homeBody(context) => SafeArea(
       child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [],
-        ),
-        // TODO : Add  BLoc
-      ),
+          child: GetBuilder<TOTPController>(
+        init: TOTPController(),
+        builder: (controller) {
+          var values = controller.db.values.toList();
+          if (values.isEmpty) {
+            return Center(child: Text('Nothing to see here'));
+          } else {
+            return ListView.builder(
+                itemCount: values.length,
+                itemBuilder: (ctx, index) {
+                  return Text(values[index].toString());
+                });
+          }
+        },
+      )),
     );
 
 FloatingActionButton buildFloatingActionButton(BuildContext context) {

@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:secur/src/models/secur_totp_model.dart';
+import 'package:secur/src/controllers/totp_controller.dart';
+import 'package:secur/src/models/securtotp.dart';
 import 'package:supercharged/supercharged.dart';
 
 Future scanBarcode() async {
@@ -16,7 +17,7 @@ Future scanBarcode() async {
       _showErrorSnackbar("The QR code that you scanned was invalid.");
       return;
     }
-
+    TOTPController.to.saveTotp(totp);
   } on PlatformException catch (e) {
     if (e.code == BarcodeScanner.cameraAccessDenied) {
       _showErrorSnackbar('Grant camera access to proceed');
@@ -65,7 +66,7 @@ SecurTOTP totpBuild(String uri) {
   return SecurTOTP(
     secret: secret,
     digits: digits == null ? 6 : digits.toInt(),
-    algorithm: getAlgorithm(algorithm),
+    algorithm: algorithm == null ? "SHA1" : algorithm,
     issuer: issuer,
   );
 }
