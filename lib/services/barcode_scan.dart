@@ -18,7 +18,7 @@ Future scanBarcode() async {
       _showErrorSnackbar('Unknown error: $e');
     }
   } catch (e) {
-    _showErrorSnackbar('Scan to proceed');
+    _showErrorSnackbar(e.toString());
   }
 }
 
@@ -40,17 +40,13 @@ void _showErrorSnackbar(String error) {
   );
 }
 
-totpBuild(String T) {
-  final regexp = RegExp(r'(\?|\&)([^=]+)\=([^&]+)');
-  Iterable<RegExpMatch> matches = regexp.allMatches(T);
-  List<dynamic> matchlist = [];
-  for (int i = 0; i < 4; i++) {
-    matchlist.add(matches.elementAt(i)[3]);
-  }
+SecurTOTP totpBuild(String uri) {
+  var parsedUri = Uri.parse(uri);
+  var secret = parsedUri.queryParameters['secret'];
+  var issuer = parsedUri.queryParameters['issuer'];
+
   return SecurTOTP(
-    secret: matchlist[0].value,
-    digits: matchlist[2],
-    interval: matchlist[3],
+    secret: secret
   );
 }
 
