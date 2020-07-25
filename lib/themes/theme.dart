@@ -18,5 +18,5 @@ final ThemeData theme = ThemeData(
   brightness: Brightness.dark,
 );
 
-final systemTheme =
-    SystemUiOverlayStyle.light.copyWith(systemNavigationBarColor: deepBlue);
+final systemTheme = SystemUiOverlayStyle.light.copyWith(
+    systemNavigationBarColor: deepBlue, statusBarColor: Colors.transparent);

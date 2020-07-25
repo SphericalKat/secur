@@ -12,9 +12,11 @@ Future scanBarcode() async {
   try {
     ScanResult scanResult = await BarcodeScanner.scan();
     var totp = totpBuild(scanResult.rawContent);
-    if (totp != null) {
+    if (totp == null) {
       _showErrorSnackbar("The QR code that you scanned was invalid.");
+      return;
     }
+
   } on PlatformException catch (e) {
     if (e.code == BarcodeScanner.cameraAccessDenied) {
       _showErrorSnackbar('Grant camera access to proceed');

@@ -23,4 +23,9 @@ class SecurTOTP {
       secret: secret,
     ).now();
   }
+
+  @override
+  String toString() {
+    return "SecurOTP{ 'secret': ${this.secret}, 'algorithm': ${this.algorithm}, 'digits': ${this.digits}, 'interval': ${this.interval}, 'issuer': ${this.issuer} }";
+  }
 }
