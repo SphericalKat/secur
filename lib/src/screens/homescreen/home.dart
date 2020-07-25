@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:get/get.dart';
-import 'package:secur/services/barcode_scan.dart';
+import 'package:secur/src/services/barcode_scan.dart';
 
 class Home extends StatelessWidget {
   @override

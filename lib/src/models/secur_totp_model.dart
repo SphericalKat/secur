@@ -1,11 +1,23 @@
 import 'package:dart_otp/dart_otp.dart';
 import 'package:flutter/foundation.dart';
+import 'package:hive/hive.dart';
 
-class SecurTOTP {
-  OTPAlgorithm algorithm;
+@HiveType(typeId: 0)
+class SecurTOTP extends HiveObject {
+
+  @HiveField(0)
+  final OTPAlgorithm algorithm;
+
+  @HiveField(1)
   final int digits;
+
+  @HiveField(2)
   final int interval;
+
+  @HiveField(3)
   final String secret;
+
+  @HiveField(4)
   final String issuer;
 
   SecurTOTP(

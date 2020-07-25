@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:secur/screens/homescreen/home.dart';
-import 'package:secur/themes/theme.dart';
+import 'package:secur/src/screens/homescreen/home.dart';
+import 'package:secur/src/themes/theme.dart';
 
 void main() {
   runApp(
