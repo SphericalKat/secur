@@ -75,9 +75,7 @@ class OTPItemState extends State<OTPItem> {
     return Padding(
       padding: EdgeInsets.only(left: 8, right: 8),
       child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10)
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Padding(
           padding: EdgeInsets.only(top: 18, bottom: 18, left: 16, right: 16),
           child: Column(
@@ -88,7 +86,9 @@ class OTPItemState extends State<OTPItem> {
                   Text(
                     totp,
                     style: TextStyle(
-                        fontSize: 32, color: Theme.of(context).accentColor),
+                        fontSize: 32,
+                        color: Theme.of(context).accentColor,
+                        fontWeight: FontWeight.w500),
                   )
                 ],
               ),
@@ -99,7 +99,7 @@ class OTPItemState extends State<OTPItem> {
                   Center(
                     child: Text(
                       securTOTP.issuer,
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 18),
                     ),
                   ),
                   AnimatedCircularChart(

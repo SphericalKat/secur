@@ -47,8 +47,15 @@ Widget homeBody(context) => SafeArea(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Text('Nothing to see here', style: TextStyle(fontSize: 32, color: Theme.of(context).accentColor)),
-                  Text('Add an account to get started', style: TextStyle(fontSize: 16))
+                  Text(
+                    'Nothing to see here',
+                    style: TextStyle(
+                      fontSize: 32,
+                      color: Theme.of(context).accentColor,
+                    ),
+                  ),
+                  Text('Add an account to get started',
+                      style: TextStyle(fontSize: 16))
                 ],
               ),
             );
@@ -68,7 +75,7 @@ FloatingActionButton buildFloatingActionButton(BuildContext context) {
     onPressed: () {
       _bottomSheet(context);
     },
-    tooltip: 'Add secret',
+    tooltip: 'Add an account',
     child: Icon(
       Icons.add,
       color: Colors.white,
