@@ -88,7 +88,10 @@ void _bottomSheet(context) {
             ListTile(
               leading: Icon(MaterialCommunityIcons.qrcode_scan),
               title: Text("Scan QR code"),
-              onTap: () async => await scanBarcode(),
+              onTap: () async {
+                navigator.pop();
+                await scanBarcode();
+              },
             ),
             ListTile(
               leading: Icon(MaterialCommunityIcons.keyboard),
