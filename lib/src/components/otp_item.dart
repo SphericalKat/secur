@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:countdown/countdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_circular_chart/flutter_circular_chart.dart';
-import 'package:get/get.dart';
 import 'package:secur/src/controllers/item_selection_controller.dart';
 import 'package:secur/src/controllers/totp_controller.dart';
 import 'package:secur/src/models/securtotp.dart';
@@ -47,22 +46,24 @@ class OTPItemState extends State<OTPItem> {
 
           var percent = (timeVal / securTOTP.interval) * 100;
 
-          _chartKey.currentState.updateData(
-            [
-              CircularStackEntry(
-                [
-                  CircularSegmentEntry(
-                    percent,
-                    Theme.of(context).accentColor,
-                    rankKey: 'completed',
-                  ),
-                  CircularSegmentEntry(100 - percent, Theme.of(context).cardColor,
-                      rankKey: 'remaining')
-                ],
-                rankKey: 'progress',
-              )
-            ],
-          );
+          if (_chartKey.currentState != null) {
+            _chartKey.currentState.updateData(
+              [
+                CircularStackEntry(
+                  [
+                    CircularSegmentEntry(
+                      percent,
+                      Theme.of(context).accentColor,
+                      rankKey: 'completed',
+                    ),
+                    CircularSegmentEntry(100 - percent, Theme.of(context).cardColor,
+                        rankKey: 'remaining')
+                  ],
+                  rankKey: 'progress',
+                )
+              ],
+            );
+          }
         });
       }
     });
@@ -78,6 +79,8 @@ class OTPItemState extends State<OTPItem> {
   @override
   Widget build(BuildContext context) {
     var totpKey = TOTPController.to.getTotpKey(securTOTP);
+    var isItemSelected = ItemSelectionController.to.selectedItems.contains(totpKey);
+
     return Padding(
       padding: EdgeInsets.only(left: 8, right: 8),
       child: GestureDetector(
@@ -96,17 +99,10 @@ class OTPItemState extends State<OTPItem> {
           }
         },
         child: Card(
-          shape: ItemSelectionController.to.selectedItems.contains(totpKey)
-              ? RoundedRectangleBorder(
+          shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
-                  side: BorderSide(
-                      color: Theme.of(context).accentColor, width: 2),
-                )
-              : RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  side: BorderSide(
-                      color: Colors.transparent, width: 2),
                 ),
+          color: isItemSelected ? Theme.of(context).accentColor : Theme.of(context).cardColor,
           child: Padding(
             padding: EdgeInsets.only(top: 18, bottom: 18, left: 16, right: 16),
             child: Column(
@@ -118,7 +114,7 @@ class OTPItemState extends State<OTPItem> {
                       totp,
                       style: TextStyle(
                           fontSize: 32,
-                          color: Theme.of(context).accentColor,
+                          color: isItemSelected ? Colors.white : Theme.of(context).accentColor,
                           fontWeight: FontWeight.w500),
                     )
                   ],
@@ -133,7 +129,10 @@ class OTPItemState extends State<OTPItem> {
                         style: TextStyle(fontSize: 18),
                       ),
                     ),
-                    AnimatedCircularChart(
+                    isItemSelected ? Container(
+                      width: 32, height: 32,
+                    ) : AnimatedCircularChart(
+                      duration: 1.seconds,
                       key: _chartKey,
                       size: const Size(32.0, 32.0),
                       initialChartData: <CircularStackEntry>[
