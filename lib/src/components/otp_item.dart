@@ -56,7 +56,8 @@ class OTPItemState extends State<OTPItem> {
                       Theme.of(context).accentColor,
                       rankKey: 'completed',
                     ),
-                    CircularSegmentEntry(100 - percent, Theme.of(context).cardColor,
+                    CircularSegmentEntry(
+                        100 - percent, Theme.of(context).cardColor,
                         rankKey: 'remaining')
                   ],
                   rankKey: 'progress',
@@ -79,7 +80,8 @@ class OTPItemState extends State<OTPItem> {
   @override
   Widget build(BuildContext context) {
     var totpKey = TOTPController.to.getTotpKey(securTOTP);
-    var isItemSelected = ItemSelectionController.to.selectedItems.contains(totpKey);
+    var isItemSelected =
+        ItemSelectionController.to.selectedItems.contains(totpKey);
 
     return Padding(
       padding: EdgeInsets.only(left: 8, right: 8),
@@ -100,9 +102,11 @@ class OTPItemState extends State<OTPItem> {
         },
         child: Card(
           shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-          color: isItemSelected ? Theme.of(context).accentColor : Theme.of(context).cardColor,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          color: isItemSelected
+              ? Theme.of(context).accentColor
+              : Theme.of(context).cardColor,
           child: Padding(
             padding: EdgeInsets.only(top: 18, bottom: 18, left: 16, right: 16),
             child: Column(
@@ -114,7 +118,9 @@ class OTPItemState extends State<OTPItem> {
                       totp,
                       style: TextStyle(
                           fontSize: 32,
-                          color: isItemSelected ? Colors.white : Theme.of(context).accentColor,
+                          color: isItemSelected
+                              ? Colors.white
+                              : Theme.of(context).accentColor,
                           fontWeight: FontWeight.w500),
                     )
                   ],
@@ -129,30 +135,33 @@ class OTPItemState extends State<OTPItem> {
                         style: TextStyle(fontSize: 18),
                       ),
                     ),
-                    isItemSelected ? Container(
-                      width: 32, height: 32,
-                    ) : AnimatedCircularChart(
-                      duration: 1.seconds,
-                      key: _chartKey,
-                      size: const Size(32.0, 32.0),
-                      initialChartData: <CircularStackEntry>[
-                        CircularStackEntry(
-                          [
-                            CircularSegmentEntry(
-                              0,
-                              Theme.of(context).accentColor,
-                              rankKey: 'completed',
-                            ),
-                            CircularSegmentEntry(
-                                100, Theme.of(context).cardColor,
-                                rankKey: 'remaining')
-                          ],
-                          rankKey: 'progress',
-                        )
-                      ],
-                      chartType: CircularChartType.Pie,
-                      percentageValues: true,
-                    )
+                    isItemSelected
+                        ? Container(
+                            width: 32,
+                            height: 32,
+                          )
+                        : AnimatedCircularChart(
+                            duration: 1.seconds,
+                            key: _chartKey,
+                            size: const Size(32.0, 32.0),
+                            initialChartData: <CircularStackEntry>[
+                              CircularStackEntry(
+                                [
+                                  CircularSegmentEntry(
+                                    0,
+                                    Theme.of(context).accentColor,
+                                    rankKey: 'completed',
+                                  ),
+                                  CircularSegmentEntry(
+                                      100, Theme.of(context).cardColor,
+                                      rankKey: 'remaining')
+                                ],
+                                rankKey: 'progress',
+                              )
+                            ],
+                            chartType: CircularChartType.Pie,
+                            percentageValues: true,
+                          )
                   ],
                 )
               ],

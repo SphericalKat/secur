@@ -14,8 +14,7 @@ class TOTPController extends GetxController {
   }
 
   int getTotpKey(SecurTOTP totp) {
-    var savedMap =
-        Map.fromIterables(db.values.map((e) => e.secret), db.keys);
+    var savedMap = Map.fromIterables(db.values.map((e) => e.secret), db.keys);
     return savedMap[totp.secret];
   }
 

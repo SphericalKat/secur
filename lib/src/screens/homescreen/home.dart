@@ -14,7 +14,9 @@ class Home extends StatelessWidget {
       init: ItemSelectionController(),
       builder: (controller) {
         return Scaffold(
-          floatingActionButton: controller.areItemsSelected ? null : buildFloatingActionButton(context),
+          floatingActionButton: controller.areItemsSelected
+              ? null
+              : buildFloatingActionButton(context),
           body: homeBody(context),
           appBar: appBar(context, controller),
         );

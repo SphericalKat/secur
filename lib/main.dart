@@ -17,7 +17,6 @@ void main() async {
 }
 
 class Secur extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(systemTheme);
