@@ -3,21 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:get/get.dart';
 import 'package:secur/src/components/otp_item.dart';
+import 'package:secur/src/controllers/item_selection_controller.dart';
 import 'package:secur/src/controllers/totp_controller.dart';
 import 'package:secur/src/services/barcode_scan.dart';
 
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: buildFloatingActionButton(context),
-      body: homeBody(context),
-      appBar: appBar(context),
+    return GetBuilder<ItemSelectionController>(
+      init: ItemSelectionController(),
+      builder: (controller) {
+        return Scaffold(
+          floatingActionButton: buildFloatingActionButton(context),
+          body: homeBody(context),
+          appBar: appBar(context, controller),
+        );
+      },
     );
   }
 }
 
-Widget appBar(context) => AppBar(
+Widget appBar(BuildContext context, ItemSelectionController controller) {
+  if (!controller.areItemsSelected) {
+    return AppBar(
       title: RichText(
         text: TextSpan(
             style: TextStyle(
@@ -34,6 +42,18 @@ Widget appBar(context) => AppBar(
       ),
       centerTitle: true,
     );
+  } else {
+    return AppBar(
+      title: Text(controller.selectedItems.length.toString()),
+      leading: FlatButton(
+        onPressed: () {
+          controller.removeAllItems();
+        },
+        child: Icon(Icons.close),
+      ),
+    );
+  }
+}
 
 Widget homeBody(context) => SafeArea(
       child: Container(
