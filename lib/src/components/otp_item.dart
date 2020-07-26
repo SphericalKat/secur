@@ -38,31 +38,33 @@ class OTPItemState extends State<OTPItem> {
 
     sub.onData((data) {
       if (timeVal == data.inSeconds) return;
-      setState(() {
-        timeVal = data.inSeconds;
-        if (timeVal == 0) {
-          totp = securTOTP.getTotp();
-        }
+      if (this.mounted) {
+        setState(() {
+          timeVal = data.inSeconds;
+          if (timeVal == 0) {
+            totp = securTOTP.getTotp();
+          }
 
-        var percent = (timeVal / securTOTP.interval) * 100;
+          var percent = (timeVal / securTOTP.interval) * 100;
 
-        _chartKey.currentState.updateData(
-          [
-            CircularStackEntry(
-              [
-                CircularSegmentEntry(
-                  percent,
-                  Theme.of(context).accentColor,
-                  rankKey: 'completed',
-                ),
-                CircularSegmentEntry(100 - percent, Theme.of(context).cardColor,
-                    rankKey: 'remaining')
-              ],
-              rankKey: 'progress',
-            )
-          ],
-        );
-      });
+          _chartKey.currentState.updateData(
+            [
+              CircularStackEntry(
+                [
+                  CircularSegmentEntry(
+                    percent,
+                    Theme.of(context).accentColor,
+                    rankKey: 'completed',
+                  ),
+                  CircularSegmentEntry(100 - percent, Theme.of(context).cardColor,
+                      rankKey: 'remaining')
+                ],
+                rankKey: 'progress',
+              )
+            ],
+          );
+        });
+      }
     });
   }
 

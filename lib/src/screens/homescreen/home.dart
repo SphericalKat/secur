@@ -51,6 +51,51 @@ Widget appBar(BuildContext context, ItemSelectionController controller) {
         },
         child: Icon(Icons.close),
       ),
+      actions: <Widget>[
+        FlatButton(
+          onPressed: () => Get.dialog(AlertDialog(
+            title: Text(
+              'Warning!',
+              style: TextStyle(
+                  color: Theme.of(context).accentColor,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold),
+            ),
+            backgroundColor: Theme.of(context).primaryColor,
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text('Choosing yes will delete the selected items.'),
+                  Text('Do you still wish to proceed?'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text(
+                  'Yes',
+                  style: TextStyle(
+                      color: Theme.of(context).accentColor, fontSize: 18),
+                ),
+                onPressed: () {
+                  navigator.pop();
+                  TOTPController.to
+                      .deleteTotps(ItemSelectionController.to.selectedItems);
+                },
+              ),
+              FlatButton(
+                child: Text(
+                  'No',
+                  style: TextStyle(
+                      color: Theme.of(context).accentColor, fontSize: 18),
+                ),
+                onPressed: () => navigator.pop(),
+              )
+            ],
+          )),
+          child: Icon(Icons.delete),
+        )
+      ],
     );
   }
 }
