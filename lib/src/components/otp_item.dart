@@ -85,28 +85,29 @@ class OTPItemState extends State<OTPItem> {
 
     return Padding(
       padding: EdgeInsets.only(left: 8, right: 8),
-      child: GestureDetector(
-        onLongPress: () {
-          ItemSelectionController.to.setSelectedItem(totpKey);
-        },
-        onTap: () {
-          if (ItemSelectionController.to.areItemsSelected) {
-            if (!ItemSelectionController.to.selectedItems.contains(totpKey)) {
-              ItemSelectionController.to.setSelectedItem(totpKey);
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        color: isItemSelected
+            ? Theme.of(context).accentColor
+            : Theme.of(context).cardColor,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(10),
+          onLongPress: () {
+            ItemSelectionController.to.setSelectedItem(totpKey);
+          },
+          onTap: () {
+            if (ItemSelectionController.to.areItemsSelected) {
+              if (!ItemSelectionController.to.selectedItems.contains(totpKey)) {
+                ItemSelectionController.to.setSelectedItem(totpKey);
+              } else {
+                ItemSelectionController.to.removeSelectedItem(totpKey);
+              }
             } else {
-              ItemSelectionController.to.removeSelectedItem(totpKey);
+              return;
             }
-          } else {
-            return;
-          }
-        },
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          color: isItemSelected
-              ? Theme.of(context).accentColor
-              : Theme.of(context).cardColor,
+          },
           child: Padding(
             padding: EdgeInsets.only(top: 18, bottom: 18, left: 16, right: 16),
             child: Column(
