@@ -58,6 +58,7 @@ SecurTOTP totpBuild(String uri) {
   final issuer = queryParams['issuer'];
   final digits = queryParams['digits'];
   final algorithm = queryParams['algorithm'];
+  print(parsedUri.path);
 
   if (secret == null) {
     return null;
