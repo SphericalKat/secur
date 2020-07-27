@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:countdown/countdown.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_circular_chart/flutter_circular_chart.dart';
+import 'package:get/get.dart';
 import 'package:secur/src/controllers/item_selection_controller.dart';
 import 'package:secur/src/controllers/totp_controller.dart';
 import 'package:secur/src/models/securtotp.dart';
@@ -98,14 +100,25 @@ class OTPItemState extends State<OTPItem> {
             ItemSelectionController.to.setSelectedItem(totpKey);
           },
           onTap: () {
+            // if items are selected
             if (ItemSelectionController.to.areItemsSelected) {
+              // if this particular item is not selected
               if (!ItemSelectionController.to.selectedItems.contains(totpKey)) {
+                // add item to selection
                 ItemSelectionController.to.setSelectedItem(totpKey);
               } else {
+                // remove item from selection
                 ItemSelectionController.to.removeSelectedItem(totpKey);
               }
             } else {
-              return;
+              Clipboard.setData(ClipboardData(text: totp))
+                  .then((value) => Get.snackbar(
+                        'Done!',
+                        'OTP has been copied to clipboard.',
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: Colors.white,
+                        colorText: Colors.black,
+                      ));
             }
           },
           child: Padding(
