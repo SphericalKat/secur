@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -10,9 +13,30 @@ import 'package:secur/src/themes/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // init hive
   await Hive.initFlutter();
   Hive.registerAdapter(SecurTOTPAdapter());
-  await Hive.openBox('totp');
+
+  // init secure storage
+  final storage = FlutterSecureStorage();
+
+  // attempt to fetch key from secure storage
+  String result = await storage.read(key: 'encryptionKey');
+  List<int> encryptionKey;
+
+  // if key does not exist already
+  if (result == null) {
+    // generate a new one
+    encryptionKey = Hive.generateSecureKey();
+    await storage.write(key: 'encryptionKey', value: jsonEncode(encryptionKey));
+  } else {
+    // otherwise use the existing key
+    encryptionKey = List<int>.from(jsonDecode(result).whereType<int>());
+  }
+
+  // open the box using the key
+  await Hive.openBox('totp', encryptionKey: encryptionKey);
 
   runApp(Secur());
 }

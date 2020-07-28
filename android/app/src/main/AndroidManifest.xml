@@ -10,6 +10,7 @@
 
     <application
         android:label="Secur"
+        android:allowBackup="false"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
