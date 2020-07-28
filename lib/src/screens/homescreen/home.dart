@@ -6,6 +6,7 @@ import 'package:secur/src/components/otp_item.dart';
 import 'package:secur/src/controllers/item_selection_controller.dart';
 import 'package:secur/src/controllers/totp_controller.dart';
 import 'package:secur/src/services/barcode_scan.dart';
+import 'package:secur/src/screens/formpage/secur_form.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -163,7 +164,7 @@ void _bottomSheet(context) {
               leading: Icon(MaterialCommunityIcons.qrcode_scan),
               title: Text("Scan QR code"),
               onTap: () async {
-                navigator.pop();
+                Get.back();
                 await scanBarcode();
               },
             ),
@@ -171,22 +172,8 @@ void _bottomSheet(context) {
               leading: Icon(MaterialCommunityIcons.keyboard),
               title: Text("Enter a provided key"),
               onTap: () {
-                navigator.pop();
-                Get.snackbar(
-                  'TODO',
-                  'To be implemented',
-                  barBlur: 0.5,
-                  snackPosition: SnackPosition.BOTTOM,
-                  colorText: Colors.black87,
-                  icon: Icon(Icons.error_outline, color: Colors.red),
-                  animationDuration: Duration(milliseconds: 500),
-                  backgroundColor: Colors.white,
-                  duration: Duration(seconds: 3),
-                  borderRadius: 10,
-                  maxWidth: 420,
-                  isDismissible: true,
-                  shouldIconPulse: false,
-                );
+                Get.back();
+                Get.to(SecurForm());
               },
             ),
           ],
