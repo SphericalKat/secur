@@ -1,6 +1,5 @@
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:dart_otp/dart_otp.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -9,12 +8,19 @@ import 'package:secur/src/controllers/totp_controller.dart';
 import 'package:secur/src/models/securtotp.dart';
 import 'package:supercharged/supercharged.dart';
 
-Future scanBarcode() async {
+Future<void> scanBarcode() async {
   try {
     ScanResult scanResult = await BarcodeScanner.scan();
+    if (scanResult.isNullOrBlank ||
+        scanResult.type == ResultType.Cancelled ||
+        scanResult.type == ResultType.Error) {
+      return;
+    }
+
     var totp = totpBuild(scanResult.rawContent);
     if (totp == null) {
       _showErrorSnackbar("The QR code that you scanned was invalid.");
+      Get.toNamed('/');
       return;
     }
     TOTPController.to.saveTotp(totp);
@@ -24,9 +30,11 @@ Future scanBarcode() async {
       await permissionHandler();
     } else {
       _showErrorSnackbar('Unknown error: $e');
+      return;
     }
   } catch (e) {
     _showErrorSnackbar(e.toString());
+    return;
   }
 }
 
@@ -58,19 +66,17 @@ SecurTOTP totpBuild(String uri) {
   final issuer = queryParams['issuer'];
   final digits = queryParams['digits'];
   final algorithm = queryParams['algorithm'];
-  print(parsedUri.path);
 
   if (secret == null) {
     return null;
   }
 
   return SecurTOTP(
-    secret: secret,
-    digits: digits == null ? 6 : digits.toInt(),
-    algorithm: algorithm == null ? "SHA1" : algorithm,
-    issuer: issuer,
-    accountName: parsedUri.pathSegments[0]
-  );
+      secret: secret,
+      digits: digits == null ? 6 : digits.toInt(),
+      algorithm: algorithm == null ? "SHA1" : algorithm,
+      issuer: issuer,
+      accountName: parsedUri.pathSegments[0]);
 }
 
 OTPAlgorithm getAlgorithm(String algorithm) {
@@ -94,5 +100,4 @@ OTPAlgorithm getAlgorithm(String algorithm) {
 
 permissionHandler() async {
   await Permission.camera.request();
-  print(await Permission.camera.status);
 }

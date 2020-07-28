@@ -1,7 +1,5 @@
-import 'package:dart_otp/dart_otp.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:base32/base32.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:secur/src/controllers/totp_controller.dart';
 import 'package:secur/src/models/securtotp.dart';
