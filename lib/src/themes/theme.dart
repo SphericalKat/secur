@@ -8,11 +8,11 @@ final electricBlue = Color(0xff2C5BED);
 
 final InputDecorationTheme inputTheme = InputDecorationTheme(
   border: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(10),
+    borderRadius: BorderRadius.circular(4),
     borderSide: BorderSide(color: electricBlue),
   ),
   enabledBorder: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(10),
+    borderRadius: BorderRadius.circular(4),
     borderSide: BorderSide(color: electricBlue),
   ),
 );

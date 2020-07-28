@@ -1,8 +1,10 @@
+import 'package:dart_otp/dart_otp.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:base32/base32.dart';
 import 'package:get/get.dart';
-import 'package:secur/src/models/securtotp.dart';
 import 'package:secur/src/controllers/totp_controller.dart';
-import 'package:secur/src/themes/theme.dart';
+import 'package:secur/src/models/securtotp.dart';
 
 class SecurForm extends StatefulWidget {
   @override
@@ -11,7 +13,7 @@ class SecurForm extends StatefulWidget {
 
 class _SecurFormState extends State<SecurForm> {
   final List<int> interval = [15, 30, 60, 120, 300, 600];
-  final List<int> digits = [6, 7, 8, 9, 10, 11, 12];
+  final List<int> digits = [6, 7, 8];
   final List<String> algorithm = ['SHA1', 'SHA256', 'SHA384', 'SHA512'];
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -22,6 +24,10 @@ class _SecurFormState extends State<SecurForm> {
   int _digits;
   String _algorithm;
   String _accountName;
+
+  String stringValidator(String value) {
+    return value.isNullOrBlank ? 'Field cannot be empty!' : null;
+  }
 
   AppBar appBar(BuildContext context) {
     return AppBar(
@@ -62,14 +68,21 @@ class _SecurFormState extends State<SecurForm> {
                   },
                   decoration: InputDecoration(
                     labelText: 'Secret key',
-                    hintText: 'JBSWY3DPEHPK3PXP',
+                    hintText: 'eg: JBSWY3DPEHPK3PXP',
                   ),
                   initialValue: _secret,
                   validator: (String value) {
-                    if (value.isEmpty) {
-                      return 'Secret cannot be empty';
+                    if (stringValidator(value) == null) {
+                      if (value.length == 32 || value.length == 16) {
+                        try {
+                          base32.decode(value);
+                          return null;
+                        } on FormatException catch(_) {
+                          return 'The entered secret is invalid.';
+                        }
+                      }
                     }
-                    return null;
+                    return 'The entered secret is invalid.';
                   },
                 ),
                 TextFormField(
@@ -80,12 +93,7 @@ class _SecurFormState extends State<SecurForm> {
                     labelText: 'Account Name',
                   ),
                   initialValue: _accountName,
-                  validator: (String value) {
-                    if (value.isEmpty) {
-                      return 'Secret cannot be empty';
-                    }
-                    return null;
-                  },
+                  validator: stringValidator,
                 ),
                 TextFormField(
                   onSaved: (newValue) {
@@ -93,19 +101,16 @@ class _SecurFormState extends State<SecurForm> {
                   },
                   decoration: InputDecoration(
                     labelText: 'Issuer',
-                    hintText: 'google',
+                    hintText: 'eg: Google',
                   ),
                   initialValue: _issuer,
-                  validator: (String value) {
-                    if (value.isEmpty) {
-                      return 'Field cannot be empty';
-                    }
-                    return null;
-                  },
+                  validator: stringValidator,
                 ),
                 DropdownButtonFormField(
-                  dropdownColor: deepBlueSecondary,
                   hint: Text('interval(s)'),
+                  onTap: () {
+                    FocusManager.instance.primaryFocus.unfocus();
+                  },
                   items: interval
                       .map((e) => DropdownMenuItem<int>(
                           value: e,
@@ -117,16 +122,14 @@ class _SecurFormState extends State<SecurForm> {
                     _interval = value;
                   },
                   onSaved: (value) {
-                    if (value == null) {
-                      _interval = 30;
-                    } else {
-                      _interval = value;
-                    }
+                    _interval = value == null ? 30 : value;
                   },
                 ),
                 DropdownButtonFormField(
-                  dropdownColor: deepBlueSecondary,
                   hint: Text('Digits'),
+                  onTap: () {
+                    FocusManager.instance.primaryFocus.unfocus();
+                  },
                   items: digits
                       .map((e) => DropdownMenuItem<int>(
                           value: e,
@@ -146,8 +149,12 @@ class _SecurFormState extends State<SecurForm> {
                   },
                 ),
                 DropdownButtonFormField(
-                  dropdownColor: deepBlueSecondary,
                   hint: Text('Algorithm'),
+                  onTap: () {
+                    FocusManager.instance.primaryFocus.unfocus();
+                  },
+                  decoration: InputDecoration(
+                      fillColor: Theme.of(context).primaryColor),
                   items: algorithm
                       .map((e) => DropdownMenuItem<String>(
                           value: e,
@@ -159,14 +166,11 @@ class _SecurFormState extends State<SecurForm> {
                     _algorithm = value;
                   },
                   onSaved: (value) {
-                    if (value == null) {
-                      _algorithm = 'SHA1';
-                    } else {
-                      _algorithm = value;
-                    }
+                    _algorithm = value == null ? 'SHA1' : value;
                   },
                 ),
                 RaisedButton(
+                  color: Theme.of(context).accentColor,
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
@@ -183,7 +187,6 @@ class _SecurFormState extends State<SecurForm> {
                       _formKey.currentState.deactivate();
                       Get.back();
                     }
-                    return null;
                   },
                   child: Text('Save'),
                 )

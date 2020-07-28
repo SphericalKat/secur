@@ -1,19 +1,19 @@
 import 'package:get/get.dart';
 
 class ItemSelectionController extends GetxController {
-  Set selectedItems = Set<int>();
+  Set selectedItems = Set<String>();
 
   static ItemSelectionController get to => Get.find();
 
   bool get areItemsSelected => selectedItems.isNotEmpty;
 
-  void setSelectedItem(int index) {
-    selectedItems.add(index);
+  void setSelectedItem(String secret) {
+    selectedItems.add(secret);
     update();
   }
 
-  void removeSelectedItem(int index) {
-    selectedItems.remove(index);
+  void removeSelectedItem(String secret) {
+    selectedItems.remove(secret);
     update();
   }
 

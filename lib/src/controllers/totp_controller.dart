@@ -9,13 +9,8 @@ class TOTPController extends GetxController {
   static TOTPController get to => Get.find();
 
   void saveTotp(SecurTOTP totp) {
-    db.add(totp);
+    db.put(totp.secret, totp);
     update();
-  }
-
-  int getTotpKey(SecurTOTP totp) {
-    var savedMap = Map.fromIterables(db.values.map((e) => e.secret), db.keys);
-    return savedMap[totp.secret];
   }
 
   void deleteTotps(Set<dynamic> totps) {

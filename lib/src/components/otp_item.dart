@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_circular_chart/flutter_circular_chart.dart';
 import 'package:get/get.dart';
 import 'package:secur/src/controllers/item_selection_controller.dart';
-import 'package:secur/src/controllers/totp_controller.dart';
 import 'package:secur/src/models/securtotp.dart';
 import 'package:supercharged/supercharged.dart';
 
@@ -81,7 +80,7 @@ class OTPItemState extends State<OTPItem> {
 
   @override
   Widget build(BuildContext context) {
-    var totpKey = TOTPController.to.getTotpKey(securTOTP);
+    var totpKey = securTOTP.secret;
     var isItemSelected =
         ItemSelectionController.to.selectedItems.contains(totpKey);
 
@@ -103,7 +102,7 @@ class OTPItemState extends State<OTPItem> {
             // if items are selected
             if (ItemSelectionController.to.areItemsSelected) {
               // if this particular item is not selected
-              if (!ItemSelectionController.to.selectedItems.contains(totpKey)) {
+              if (!isItemSelected) {
                 // add item to selection
                 ItemSelectionController.to.setSelectedItem(totpKey);
               } else {
