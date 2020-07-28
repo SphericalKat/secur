@@ -2,11 +2,12 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:supercharged/supercharged.dart';
 
-final neonGreen = Color(0xff04C290);
-final deepBlue = Color(0xff040D27);
-final deepBlueSecondary = Color(0xff132147);
-final electricBlue = Color(0xff2C5BED);
+final deepBlue = '#040D27'.toColor();
+final deepBlueSecondary = '132147'.toColor();
+final electricBlue = '2C5BED'.toColor();
+final lightGrey = 'F0F0F0'.toColor();
 
 final InputDecorationTheme inputTheme = InputDecorationTheme(
   border: OutlineInputBorder(
@@ -27,26 +28,50 @@ final pageTransitionsTheme = PageTransitionsTheme(
   },
 );
 
-final ThemeData theme = ThemeData(
+final ThemeData darkTheme = ThemeData(
+  accentColor: electricBlue,
+  primaryColor: deepBlue,
+  primaryColorDark: deepBlue,
+  backgroundColor: deepBlue,
+  scaffoldBackgroundColor: deepBlue,
+  cardColor: deepBlueSecondary,
+  fontFamily: "Circular-Std",
+  applyElevationOverlayColor: true,
+  brightness: Brightness.dark,
+  inputDecorationTheme: inputTheme,
+  pageTransitionsTheme: pageTransitionsTheme,
+);
+
+final ThemeData lightTheme = ThemeData(
     accentColor: electricBlue,
-    primaryColor: deepBlue,
-    primaryColorDark: deepBlue,
-    backgroundColor: deepBlue,
-    scaffoldBackgroundColor: deepBlue,
-    cardColor: deepBlueSecondary,
+    primaryColor: Colors.white,
+    primaryColorDark: Colors.white,
+    backgroundColor: Colors.white,
+    scaffoldBackgroundColor: Colors.white,
+    cardColor: lightGrey,
     fontFamily: "Circular-Std",
     applyElevationOverlayColor: true,
-    brightness: Brightness.dark,
+    brightness: Brightness.light,
     inputDecorationTheme: inputTheme,
-    pageTransitionsTheme: pageTransitionsTheme);
+    pageTransitionsTheme: pageTransitionsTheme,
+    cardTheme: CardTheme(
+      elevation: 0,
+    )
+);
 
-final systemTheme = SystemUiOverlayStyle.light.copyWith(
-    systemNavigationBarColor: deepBlue, statusBarColor: Colors.transparent);
+final darkSystemTheme = SystemUiOverlayStyle.dark.copyWith(
+  systemNavigationBarColor: deepBlue,
+  statusBarColor: Colors.transparent,
+);
+
+final lightSystemTheme = SystemUiOverlayStyle.light.copyWith(
+  systemNavigationBarColor: lightTheme.primaryColor,
+  statusBarColor: Colors.transparent,
+);
 
 class CustomSharedAxisTransition extends CustomTransition {
   @override
-  Widget buildTransition(
-      BuildContext context,
+  Widget buildTransition(BuildContext context,
       Curve curve,
       Alignment alignment,
       Animation<double> animation,
@@ -61,24 +86,13 @@ class CustomSharedAxisTransition extends CustomTransition {
   }
 }
 
-class SizeTransitions extends CustomTransition {
-  @override
-  Widget buildTransition(
-      BuildContext context,
-      Curve curve,
-      Alignment alignment,
-      Animation<double> animation,
-      Animation<double> secondaryAnimation,
-      Widget child) {
-    return Align(
-      alignment: Alignment.center,
-      child: SizeTransition(
-        sizeFactor: CurvedAnimation(
-          parent: animation,
-          curve: curve,
-        ),
-        child: child,
-      ),
-    );
+void setNavbarTheme() {
+  if (Get.theme.brightness == Brightness.light) {
+    SystemChrome.setSystemUIOverlayStyle(darkSystemTheme);
+  } else {
+    SystemChrome.setSystemUIOverlayStyle(lightSystemTheme);
   }
 }
+
+Color get textColor =>
+    Get.theme.brightness == Brightness.light ? Colors.black87 : Colors.white;

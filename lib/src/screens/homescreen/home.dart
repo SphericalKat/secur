@@ -6,6 +6,7 @@ import 'package:secur/src/components/otp_item.dart';
 import 'package:secur/src/controllers/item_selection_controller.dart';
 import 'package:secur/src/controllers/totp_controller.dart';
 import 'package:secur/src/services/barcode_scan.dart';
+import 'package:secur/src/themes/theme.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -27,6 +28,7 @@ class Home extends StatelessWidget {
 
 Widget appBar(BuildContext context, ItemSelectionController controller) {
   if (!controller.areItemsSelected) {
+    var brightness = Theme.of(context).brightness;
     return AppBar(
       title: RichText(
         text: TextSpan(
@@ -39,29 +41,45 @@ Widget appBar(BuildContext context, ItemSelectionController controller) {
               TextSpan(
                   text: 'Sec',
                   style: TextStyle(color: Theme.of(context).accentColor)),
-              TextSpan(text: 'ur', style: TextStyle(color: Colors.white))
+              TextSpan(text: 'ur', style: TextStyle(color: textColor))
             ]),
       ),
       centerTitle: true,
+      elevation: 0,
+      actions: <Widget>[
+        IconButton(
+            icon: brightness == Brightness.light
+                ? Icon(Icons.brightness_4)
+                : Icon(Icons.brightness_high),
+            onPressed: () {
+              brightness == Brightness.light
+                  ? Get.changeTheme(darkTheme)
+                  : Get.changeTheme(lightTheme);
+              setNavbarTheme();
+            })
+      ],
     );
   } else {
     return AppBar(
       title: Text(controller.selectedItems.length.toString()),
-      leading: FlatButton(
+      leading: IconButton(
+        icon: Icon(Icons.close),
         onPressed: () {
           controller.removeAllItems();
         },
-        child: Icon(Icons.close),
       ),
+      elevation: 0,
       actions: <Widget>[
-        FlatButton(
+        IconButton(
+          icon: Icon(Icons.delete),
           onPressed: () => Get.dialog(AlertDialog(
             title: Text(
               'Warning!',
               style: TextStyle(
-                  color: Theme.of(context).accentColor,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold),
+                color: Theme.of(context).accentColor,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             backgroundColor: Theme.of(context).primaryColor,
             content: SingleChildScrollView(
@@ -95,7 +113,6 @@ Widget appBar(BuildContext context, ItemSelectionController controller) {
               )
             ],
           )),
-          child: Icon(Icons.delete),
         )
       ],
     );

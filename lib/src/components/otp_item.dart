@@ -7,6 +7,7 @@ import 'package:flutter_circular_chart/flutter_circular_chart.dart';
 import 'package:get/get.dart';
 import 'package:secur/src/controllers/item_selection_controller.dart';
 import 'package:secur/src/models/securtotp.dart';
+import 'package:secur/src/themes/theme.dart';
 import 'package:supercharged/supercharged.dart';
 
 class OTPItem extends StatefulWidget {
@@ -146,11 +147,19 @@ class OTPItemState extends State<OTPItem> {
                       child: securTOTP.accountName == null
                           ? Text(
                               securTOTP.issuer,
-                              style: TextStyle(fontSize: 18),
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: isItemSelected
+                                      ? Colors.white
+                                      : textColor),
                             )
                           : Text(
                               securTOTP.accountName,
-                              style: TextStyle(fontSize: 18),
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: isItemSelected
+                                      ? Colors.white
+                                      : textColor),
                             ),
                     ),
                     isItemSelected

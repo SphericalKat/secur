@@ -44,13 +44,12 @@ void main() async {
 class Secur extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(systemTheme);
 
     return GetMaterialApp(
       enableLog: true,
       debugShowCheckedModeBanner: false,
       title: 'Secur',
-      theme: theme,
+      theme: darkTheme,
       initialRoute: '/home',
       getPages: [
         GetPage(
