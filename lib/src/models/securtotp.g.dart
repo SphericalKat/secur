@@ -22,13 +22,14 @@ class SecurTOTPAdapter extends TypeAdapter<SecurTOTP> {
       digits: fields[1] as int,
       interval: fields[2] as int,
       issuer: fields[4] as String,
+      accountName: fields[5] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, SecurTOTP obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.algorithm)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class SecurTOTPAdapter extends TypeAdapter<SecurTOTP> {
       ..writeByte(3)
       ..write(obj.secret)
       ..writeByte(4)
-      ..write(obj.issuer);
+      ..write(obj.issuer)
+      ..writeByte(5)
+      ..write(obj.accountName);
   }
 
   @override

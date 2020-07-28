@@ -22,19 +22,24 @@ class SecurTOTP extends HiveObject {
   @HiveField(4)
   final String issuer;
 
+  @HiveField(5)
+  final String accountName;
+
   SecurTOTP(
       {@required this.secret,
       this.algorithm = "SHA1",
       this.digits = 6,
       this.interval = 30,
-      this.issuer = "Generic Issuer"});
+      this.issuer = "Generic Issuer",
+      this.accountName});
 
   SecurTOTP.fromJson(Map<String, dynamic> json)
       : algorithm = json['algorithm'],
         digits = json['digits'],
         interval = json['interval'],
         secret = json['secret'],
-        issuer = json['issuer'];
+        issuer = json['issuer'],
+        accountName = json['accountName'];
 
   Map<String, dynamic> toJson() => {
         'algorithm': algorithm.toString(),
@@ -42,6 +47,7 @@ class SecurTOTP extends HiveObject {
         'interval': interval,
         'secret': secret,
         'issuer': issuer,
+        'accountName': accountName
       };
 
   String getTotp() {
@@ -55,6 +61,11 @@ class SecurTOTP extends HiveObject {
 
   @override
   String toString() {
-    return "SecurOTP{ 'secret': ${this.secret}, 'algorithm': ${this.algorithm}, 'digits': ${this.digits}, 'interval': ${this.interval}, 'issuer': ${this.issuer} }";
+    return "SecurOTP{ 'secret': ${this.secret}, "
+        "'algorithm': ${this.algorithm}, "
+        "'digits': ${this.digits}, "
+        "'interval': ${this.interval}, "
+        "'issuer': ${this.issuer}, "
+        "'accountName': ${this.accountName} }";
   }
 }

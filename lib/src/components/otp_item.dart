@@ -144,8 +144,11 @@ class OTPItemState extends State<OTPItem> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Center(
-                      child: Text(
+                      child: securTOTP.accountName == null ? Text(
                         securTOTP.issuer,
+                        style: TextStyle(fontSize: 18),
+                      ) : Text(
+                        securTOTP.accountName,
                         style: TextStyle(fontSize: 18),
                       ),
                     ),
