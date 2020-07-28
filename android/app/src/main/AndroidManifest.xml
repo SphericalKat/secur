@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name="io.flutter.app.FlutterApplication"
         android:label="Secur"
         android:icon="@mipmap/launcher_icon">
         <activity
