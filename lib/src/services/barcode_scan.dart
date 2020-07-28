@@ -20,7 +20,6 @@ Future<void> scanBarcode() async {
     var totp = totpBuild(scanResult.rawContent);
     if (totp == null) {
       _showErrorSnackbar("The QR code that you scanned was invalid.");
-      Get.toNamed('/');
       return;
     }
     TOTPController.to.saveTotp(totp);

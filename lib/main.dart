@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:secur/src/models/securtotp.dart';
+import 'package:secur/src/screens/formpage/secur_form.dart';
 import 'package:secur/src/screens/homescreen/home.dart';
 import 'package:secur/src/themes/theme.dart';
 
@@ -26,7 +27,18 @@ class Secur extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Secur',
       theme: theme,
-      home: Home(),
+      initialRoute: '/home',
+      getPages: [
+        GetPage(
+            name: '/home',
+            page: () => Home(),
+            customTransition: CustomSharedAxisTransition()),
+        GetPage(
+            name: '/form',
+            page: () => SecurForm(),
+            customTransition: CustomSharedAxisTransition())
+      ],
+      customTransition: CustomSharedAxisTransition(),
     );
   }
 }

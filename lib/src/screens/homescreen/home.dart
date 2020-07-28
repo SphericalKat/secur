@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:secur/src/components/otp_item.dart';
 import 'package:secur/src/controllers/item_selection_controller.dart';
 import 'package:secur/src/controllers/totp_controller.dart';
-import 'package:secur/src/screens/formpage/secur_form.dart';
 import 'package:secur/src/services/barcode_scan.dart';
 
 class Home extends StatelessWidget {
@@ -173,7 +172,7 @@ void _bottomSheet(context) {
               title: Text("Enter a provided key"),
               onTap: () {
                 Get.back();
-                Get.to(SecurForm());
+                Get.toNamed('/form');
               },
             ),
           ],

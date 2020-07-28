@@ -75,7 +75,7 @@ class _SecurFormState extends State<SecurForm> {
                         try {
                           base32.decode(value);
                           return null;
-                        } on FormatException catch(_) {
+                        } on FormatException catch (_) {
                           return 'The entered secret is invalid.';
                         }
                       }
