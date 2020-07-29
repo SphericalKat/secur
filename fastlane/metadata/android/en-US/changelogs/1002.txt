@@ -1,0 +1,6 @@
+ - Added encryption to hive boxes (Necessary for production)
+ - Store encryption key in Secure Storage
+ - Add a light theme (triggered automatically by system theme)
+ - Support Account Names in the issuer text
+ - Add support for entering a secret manually
+ - Various bugfixes
