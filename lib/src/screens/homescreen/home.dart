@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:get/get.dart';
 import 'package:secur/src/components/otp_item.dart';
 import 'package:secur/src/controllers/item_selection_controller.dart';
@@ -165,7 +164,7 @@ void _bottomSheet(context) {
         child: Wrap(
           children: [
             ListTile(
-              leading: Icon(MaterialCommunityIcons.qrcode_scan),
+              leading: Icon(Icons.fullscreen),
               title: Text("Scan QR code"),
               onTap: () async {
                 Get.back();
@@ -173,7 +172,7 @@ void _bottomSheet(context) {
               },
             ),
             ListTile(
-              leading: Icon(MaterialCommunityIcons.keyboard),
+              leading: Icon(Icons.keyboard),
               title: Text("Enter a provided key"),
               onTap: () {
                 Get.back();
