@@ -56,16 +56,10 @@ final ThemeData lightTheme = ThemeData(
     pageTransitionsTheme: pageTransitionsTheme,
     cardTheme: CardTheme(
       elevation: 0,
-    )
+    ),
 );
 
-final darkSystemTheme = SystemUiOverlayStyle.dark.copyWith(
-  systemNavigationBarColor: deepBlue,
-  statusBarColor: Colors.transparent,
-);
-
-final lightSystemTheme = SystemUiOverlayStyle.light.copyWith(
-  systemNavigationBarColor: lightTheme.primaryColor,
+final systemTheme = SystemUiOverlayStyle.light.copyWith(
   statusBarColor: Colors.transparent,
 );
 
@@ -83,14 +77,6 @@ class CustomSharedAxisTransition extends CustomTransition {
       transitionType: SharedAxisTransitionType.scaled,
       child: child,
     );
-  }
-}
-
-void setNavbarTheme() {
-  if (Get.theme.brightness == Brightness.light) {
-    SystemChrome.setSystemUIOverlayStyle(darkSystemTheme);
-  } else {
-    SystemChrome.setSystemUIOverlayStyle(lightSystemTheme);
   }
 }
 

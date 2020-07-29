@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:secur/src/controllers/totp_controller.dart';
 import 'package:secur/src/models/securtotp.dart';
+import 'package:secur/src/themes/theme.dart';
 
 class SecurForm extends StatefulWidget {
   @override

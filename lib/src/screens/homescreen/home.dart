@@ -46,18 +46,6 @@ Widget appBar(BuildContext context, ItemSelectionController controller) {
       ),
       centerTitle: true,
       elevation: 0,
-      actions: <Widget>[
-        IconButton(
-            icon: brightness == Brightness.light
-                ? Icon(Icons.brightness_4)
-                : Icon(Icons.brightness_high),
-            onPressed: () {
-              brightness == Brightness.light
-                  ? Get.changeTheme(darkTheme)
-                  : Get.changeTheme(lightTheme);
-              setNavbarTheme();
-            })
-      ],
     );
   } else {
     return AppBar(

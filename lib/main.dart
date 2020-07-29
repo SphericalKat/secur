@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
@@ -44,12 +45,14 @@ void main() async {
 class Secur extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(systemTheme);
 
     return GetMaterialApp(
       enableLog: true,
       debugShowCheckedModeBanner: false,
       title: 'Secur',
-      theme: darkTheme,
+      theme: lightTheme,
+      darkTheme: darkTheme,
       initialRoute: '/home',
       getPages: [
         GetPage(
