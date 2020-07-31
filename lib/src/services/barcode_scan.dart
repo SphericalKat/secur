@@ -26,7 +26,7 @@ Future<void> scanBarcode() async {
   } on PlatformException catch (e) {
     if (e.code == BarcodeScanner.cameraAccessDenied) {
       _showErrorSnackbar('Grant camera access to proceed');
-      await permissionHandler();
+      await Permission.camera.request();
     } else {
       _showErrorSnackbar('Unknown error: $e');
       return;
@@ -95,8 +95,4 @@ OTPAlgorithm getAlgorithm(String algorithm) {
     default:
       return OTPAlgorithm.SHA1;
   }
-}
-
-permissionHandler() async {
-  await Permission.camera.request();
 }
