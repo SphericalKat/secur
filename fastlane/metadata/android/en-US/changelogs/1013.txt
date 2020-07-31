@@ -1,0 +1,4 @@
+ - Remove unnecessary font/icon packages
+ - Minor optimizations
+ - Fix a regression where any errors encountered while scanning would cause a black screen
+ - Add camera usage description to info.Plist (necessary for iOS builds)
