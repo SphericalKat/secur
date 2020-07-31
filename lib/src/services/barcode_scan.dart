@@ -38,7 +38,6 @@ Future<void> scanBarcode() async {
 }
 
 void _showErrorSnackbar(String error) {
-  navigator.pop();
   Get.snackbar(
     'There seems to be a problem 😗',
     error,

@@ -50,7 +50,6 @@ flutter_icons:
   ios: true
   image_path: "assets/icons/icon.png"
 
-
 flutter:
   uses-material-design: true
 
