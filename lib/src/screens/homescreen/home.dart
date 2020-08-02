@@ -197,7 +197,6 @@ FloatingActionButton buildFloatingActionButton(BuildContext context) {
 void _bottomSheet(context) {
   showModalBottomSheet(
     context: context,
-    backgroundColor: Theme.of(context).primaryColor,
     builder: (BuildContext bc) {
       return Container(
         child: Wrap(

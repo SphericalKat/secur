@@ -38,17 +38,26 @@ final ThemeData darkTheme = ThemeData(
   backgroundColor: deepBlue,
   scaffoldBackgroundColor: deepBlue,
   cardColor: deepBlueSecondary,
-  fontFamily: "Circular-Std",
   applyElevationOverlayColor: true,
   brightness: Brightness.dark,
   inputDecorationTheme: inputTheme,
   toggleableActiveColor: electricBlue,
   cardTheme: CardTheme(
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      )),
-  textTheme: ThemeData.dark().textTheme,
+    elevation: 0,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
+  ),
+  textTheme: ThemeData.dark().textTheme.apply(fontFamily: 'Circular-Std'),
+  bottomSheetTheme: BottomSheetThemeData(
+    modalBackgroundColor: deepBlueSecondary,
+    shape: RoundedRectangleBorder(),
+  ),
+  iconTheme: IconThemeData(color: Colors.white.withOpacity(0.7)),
+  dialogTheme: DialogTheme(
+    backgroundColor: deepBlue,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+  ),
 );
 
 final ThemeData lightTheme = ThemeData(
@@ -59,8 +68,7 @@ final ThemeData lightTheme = ThemeData(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-    color: Colors.white
-  ),
+      color: Colors.white),
   primaryColorDark: Colors.white,
   backgroundColor: Colors.white,
   scaffoldBackgroundColor: Colors.white,
@@ -74,7 +82,14 @@ final ThemeData lightTheme = ThemeData(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       )),
-  textTheme: ThemeData.light().textTheme,
+  bottomSheetTheme: BottomSheetThemeData(
+      modalBackgroundColor: Colors.white, shape: RoundedRectangleBorder()),
+  textTheme: ThemeData.light().textTheme.apply(fontFamily: 'Circular-Std'),
+  iconTheme: IconThemeData(color: Colors.black.withOpacity(0.7)),
+  dialogTheme: DialogTheme(
+    backgroundColor: deepBlue,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+  ),
 );
 
 final systemTheme = SystemUiOverlayStyle.light.copyWith(
