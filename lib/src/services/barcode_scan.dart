@@ -71,8 +71,8 @@ SecurTOTP totpBuild(String uri) {
 
   return SecurTOTP(
       secret: secret,
-      digits: digits == null ? 6 : digits.toInt(),
-      algorithm: algorithm == null ? "SHA1" : algorithm,
+      digits: digits.toInt() ?? 6,
+      algorithm: algorithm ?? "SHA1",
       issuer: issuer,
       accountName: parsedUri.pathSegments[0]);
 }

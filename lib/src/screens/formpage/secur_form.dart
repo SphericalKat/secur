@@ -45,6 +45,7 @@ class _SecurFormState extends State<SecurForm> {
             ]),
       ),
       centerTitle: true,
+      elevation: 0,
     );
   }
 
@@ -121,7 +122,7 @@ class _SecurFormState extends State<SecurForm> {
                     _interval = value;
                   },
                   onSaved: (value) {
-                    _interval = value == null ? 30 : value;
+                    _interval = value ?? 30;
                   },
                 ),
                 DropdownButtonFormField(
@@ -140,11 +141,7 @@ class _SecurFormState extends State<SecurForm> {
                     _digits = value;
                   },
                   onSaved: (value) {
-                    if (value == null) {
-                      _digits = 6;
-                    } else {
-                      _digits = value;
-                    }
+                    _digits = value ?? 6;
                   },
                 ),
                 DropdownButtonFormField(
@@ -165,7 +162,7 @@ class _SecurFormState extends State<SecurForm> {
                     _algorithm = value;
                   },
                   onSaved: (value) {
-                    _algorithm = value == null ? 'SHA1' : value;
+                    _algorithm = value ?? 'SHA1';
                   },
                 ),
                 RaisedButton(
