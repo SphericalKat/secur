@@ -150,13 +150,22 @@ class _SecurFormState extends State<SecurForm> {
                     FocusManager.instance.primaryFocus.unfocus();
                   },
                   decoration: InputDecoration(
-                      fillColor: Theme.of(context).primaryColor),
+                    fillColor: Theme.of(context).primaryColor,
+                  ),
                   items: algorithm
-                      .map((e) => DropdownMenuItem<String>(
+                      .map(
+                        (e) => DropdownMenuItem<String>(
                           value: e,
-                          child: Container(
-                            child: Text(e.toString()),
-                          )))
+                          child: SizedBox(
+                            child: DecoratedBox(
+                              child: Text(e.toString()),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
                       .toList(),
                   onChanged: (value) {
                     _algorithm = value;
@@ -184,7 +193,12 @@ class _SecurFormState extends State<SecurForm> {
                       Get.back();
                     }
                   },
-                  child: Text('Save', style: TextStyle(color: Colors.white),),
+                  child: Text(
+                    'Save',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                 )
               ],
             ),

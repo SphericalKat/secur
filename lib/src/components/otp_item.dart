@@ -31,7 +31,7 @@ class OTPItemState extends State<OTPItem> {
   OTPItemState(this.securTOTP);
 
   void countdown() {
-    cd = CountDown(30.seconds);
+    cd = CountDown(30.seconds, refresh: 0.5.seconds);
     sub = cd.stream.listen(null);
     sub.onDone(() {
       countdown();
