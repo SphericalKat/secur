@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
@@ -11,6 +10,7 @@ import 'package:secur/src/models/securtotp.dart';
 import 'package:secur/src/screens/formpage/secur_form.dart';
 import 'package:secur/src/screens/homescreen/home.dart';
 import 'package:secur/src/themes/theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +21,9 @@ void main() async {
 
   // init secure storage
   final storage = FlutterSecureStorage();
+
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  Get.put(prefs);
 
   // attempt to fetch key from secure storage
   String result = await storage.read(key: 'encryptionKey');
@@ -42,7 +45,37 @@ void main() async {
   runApp(Secur());
 }
 
-class Secur extends StatelessWidget {
+class Secur extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return SecurState();
+  }
+}
+
+class SecurState extends State<Secur> with WidgetsBindingObserver {
+  ThemeData theme;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    theme = getTheme();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangePlatformBrightness() {
+    super.didChangePlatformBrightness();
+    setState(() {
+      theme = getTheme();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(systemTheme);
@@ -51,8 +84,7 @@ class Secur extends StatelessWidget {
       enableLog: true,
       debugShowCheckedModeBanner: false,
       title: 'Secur',
-      theme: lightTheme,
-      darkTheme: darkTheme,
+      theme: theme,
       initialRoute: '/home',
       getPages: [
         GetPage(

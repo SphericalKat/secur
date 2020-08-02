@@ -88,9 +88,6 @@ class OTPItemState extends State<OTPItem> {
     return Padding(
       padding: EdgeInsets.only(left: 8, right: 8),
       child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
         color: isItemSelected
             ? Theme.of(context).accentColor
             : Theme.of(context).cardColor,

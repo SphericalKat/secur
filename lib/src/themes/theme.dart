@@ -2,12 +2,18 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supercharged/supercharged.dart';
 
 final deepBlue = '#040D27'.toColor();
 final deepBlueSecondary = '132147'.toColor();
 final electricBlue = '2C5BED'.toColor();
 final lightGrey = 'F0F0F0'.toColor();
+
+const PREFS_BRIGHTNESS = 'shared_prefs_brightness';
+const BRIGHNTESS_DARK = 'brightness_dark';
+const BRIGHNTESS_LIGHT = 'brightness_light';
+const BRIGHNTESS_SYSTEM = 'brightness_system';
 
 final InputDecorationTheme inputTheme = InputDecorationTheme(
   border: OutlineInputBorder(
@@ -20,17 +26,14 @@ final InputDecorationTheme inputTheme = InputDecorationTheme(
   ),
 );
 
-final pageTransitionsTheme = PageTransitionsTheme(
-  builders: <TargetPlatform, PageTransitionsBuilder>{
-    TargetPlatform.android: SharedAxisPageTransitionsBuilder(
-        transitionType: SharedAxisTransitionType.scaled,
-        fillColor: Color(0xff1d1f3e)),
-  },
-);
-
 final ThemeData darkTheme = ThemeData(
   accentColor: electricBlue,
   primaryColor: deepBlue,
+  popupMenuTheme: PopupMenuThemeData(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
+  ),
   primaryColorDark: deepBlue,
   backgroundColor: deepBlue,
   scaffoldBackgroundColor: deepBlue,
@@ -39,24 +42,39 @@ final ThemeData darkTheme = ThemeData(
   applyElevationOverlayColor: true,
   brightness: Brightness.dark,
   inputDecorationTheme: inputTheme,
-  pageTransitionsTheme: pageTransitionsTheme,
+  toggleableActiveColor: electricBlue,
+  cardTheme: CardTheme(
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      )),
+  textTheme: ThemeData.dark().textTheme,
 );
 
 final ThemeData lightTheme = ThemeData(
-    accentColor: electricBlue,
-    primaryColor: Colors.white,
-    primaryColorDark: Colors.white,
-    backgroundColor: Colors.white,
-    scaffoldBackgroundColor: Colors.white,
-    cardColor: lightGrey,
-    fontFamily: "Circular-Std",
-    applyElevationOverlayColor: true,
-    brightness: Brightness.light,
-    inputDecorationTheme: inputTheme,
-    pageTransitionsTheme: pageTransitionsTheme,
-    cardTheme: CardTheme(
+  accentColor: electricBlue,
+  toggleableActiveColor: electricBlue,
+  primaryColor: Colors.white,
+  popupMenuTheme: PopupMenuThemeData(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+    color: Colors.white
+  ),
+  primaryColorDark: Colors.white,
+  backgroundColor: Colors.white,
+  scaffoldBackgroundColor: Colors.white,
+  cardColor: lightGrey,
+  fontFamily: "Circular-Std",
+  applyElevationOverlayColor: true,
+  brightness: Brightness.light,
+  inputDecorationTheme: inputTheme,
+  cardTheme: CardTheme(
       elevation: 0,
-    ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      )),
+  textTheme: ThemeData.light().textTheme,
 );
 
 final systemTheme = SystemUiOverlayStyle.light.copyWith(
@@ -65,7 +83,8 @@ final systemTheme = SystemUiOverlayStyle.light.copyWith(
 
 class CustomSharedAxisTransition extends CustomTransition {
   @override
-  Widget buildTransition(BuildContext context,
+  Widget buildTransition(
+      BuildContext context,
       Curve curve,
       Alignment alignment,
       Animation<double> animation,
@@ -82,3 +101,22 @@ class CustomSharedAxisTransition extends CustomTransition {
 
 Color get textColor =>
     Get.theme.brightness == Brightness.light ? Colors.black87 : Colors.white;
+
+ThemeData getTheme() {
+  SharedPreferences prefs = Get.find();
+  var brightness = prefs.getString(PREFS_BRIGHTNESS) ?? BRIGHNTESS_SYSTEM;
+  switch (brightness) {
+    case BRIGHNTESS_SYSTEM:
+      var sysBrightness = WidgetsBinding.instance.window.platformBrightness;
+      return sysBrightness == Brightness.light ? lightTheme : darkTheme;
+
+    case BRIGHNTESS_LIGHT:
+      return lightTheme;
+
+    case BRIGHNTESS_DARK:
+      return darkTheme;
+
+    default:
+      return darkTheme;
+  }
+}

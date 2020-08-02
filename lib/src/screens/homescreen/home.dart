@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:secur/src/components/otp_item.dart';
+import 'package:secur/src/components/radio_row.dart';
 import 'package:secur/src/controllers/item_selection_controller.dart';
 import 'package:secur/src/controllers/totp_controller.dart';
 import 'package:secur/src/services/barcode_scan.dart';
 import 'package:secur/src/themes/theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -27,7 +29,6 @@ class Home extends StatelessWidget {
 
 Widget appBar(BuildContext context, ItemSelectionController controller) {
   if (!controller.areItemsSelected) {
-    var brightness = Theme.of(context).brightness;
     return AppBar(
       title: RichText(
         text: TextSpan(
@@ -43,6 +44,7 @@ Widget appBar(BuildContext context, ItemSelectionController controller) {
               TextSpan(text: 'ur', style: TextStyle(color: textColor))
             ]),
       ),
+      actions: <Widget>[buildPopupMenu()],
       centerTitle: true,
       elevation: 0,
     );
@@ -105,6 +107,43 @@ Widget appBar(BuildContext context, ItemSelectionController controller) {
     );
   }
 }
+
+Widget buildPopupMenu() => PopupMenuButton<String>(
+      icon: Icon(Icons.brightness_4),
+      itemBuilder: (BuildContext context) {
+        SharedPreferences prefs = Get.find();
+        var brightness = prefs.getString(PREFS_BRIGHTNESS) ?? BRIGHNTESS_SYSTEM;
+
+        return [
+          PopupMenuItem<String>(
+            child: RadioRow(
+              text: 'Light theme',
+              isEnabled: brightness == BRIGHNTESS_LIGHT,
+            ),
+            value: BRIGHNTESS_LIGHT,
+          ),
+          PopupMenuItem<String>(
+            child: RadioRow(
+              text: 'Dark theme',
+              isEnabled: brightness == BRIGHNTESS_DARK,
+            ),
+            value: BRIGHNTESS_DARK,
+          ),
+          PopupMenuItem<String>(
+            child: RadioRow(
+              text: 'System theme',
+              isEnabled: brightness == BRIGHNTESS_SYSTEM,
+            ),
+            value: BRIGHNTESS_SYSTEM,
+          ),
+        ];
+      },
+      onSelected: (value) {
+        SharedPreferences prefs = Get.find();
+        prefs.setString(PREFS_BRIGHTNESS, value);
+        Get.changeTheme(getTheme());
+      },
+    );
 
 Widget homeBody(context) => SafeArea(
       child: Container(
