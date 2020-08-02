@@ -85,18 +85,21 @@ class SecurState extends State<Secur> with WidgetsBindingObserver {
       debugShowCheckedModeBanner: false,
       title: 'Secur',
       theme: theme,
-      initialRoute: '/home',
+      initialRoute: '/',
       getPages: [
         GetPage(
-            name: '/home',
-            page: () => Home(),
-            customTransition: CustomSharedAxisTransition()),
+          name: '/',
+          page: () => Home(),
+          customTransition: CustomSharedAxisTransition(),
+          opaque: true,
+        ),
         GetPage(
-            name: '/form',
-            page: () => SecurForm(),
-            customTransition: CustomSharedAxisTransition())
+          name: '/form',
+          page: () => SecurForm(),
+          opaque: true,
+          customTransition: CustomSharedAxisTransition()
+        )
       ],
-      customTransition: CustomSharedAxisTransition(),
     );
   }
 }

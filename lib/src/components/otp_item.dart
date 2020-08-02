@@ -113,7 +113,6 @@ class OTPItemState extends State<OTPItem> {
                         'Done!',
                         'OTP has been copied to clipboard.',
                         snackPosition: SnackPosition.BOTTOM,
-                        backgroundColor: Colors.white,
                         colorText: Colors.black,
                       ));
             }
@@ -126,7 +125,7 @@ class OTPItemState extends State<OTPItem> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      totp,
+                      '${totp.substring(0, totp.length ~/ 2)} ${totp.substring(totp.length ~/ 2)}',
                       style: TextStyle(
                           fontSize: 32,
                           color: isItemSelected
@@ -141,22 +140,13 @@ class OTPItemState extends State<OTPItem> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Center(
-                      child: securTOTP.accountName == null
-                          ? Text(
-                              securTOTP.issuer,
+                      child: Text(
+                              securTOTP.accountName.replaceFirst(":", ": ") ?? securTOTP.issuer,
                               style: TextStyle(
-                                  fontSize: 18,
-                                  color: isItemSelected
-                                      ? Colors.white
-                                      : textColor),
-                            )
-                          : Text(
-                              securTOTP.accountName,
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  color: isItemSelected
-                                      ? Colors.white
-                                      : textColor),
+                                fontSize: 18,
+                                color:
+                                    isItemSelected ? Colors.white : textColor,
+                              ),
                             ),
                     ),
                     isItemSelected

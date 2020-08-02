@@ -56,7 +56,9 @@ final ThemeData darkTheme = ThemeData(
   iconTheme: IconThemeData(color: Colors.white.withOpacity(0.7)),
   dialogTheme: DialogTheme(
     backgroundColor: deepBlue,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(4),
+    ),
   ),
 );
 
@@ -65,10 +67,11 @@ final ThemeData lightTheme = ThemeData(
   toggleableActiveColor: electricBlue,
   primaryColor: Colors.white,
   popupMenuTheme: PopupMenuThemeData(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      color: Colors.white),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
+    color: Colors.white,
+  ),
   primaryColorDark: Colors.white,
   backgroundColor: Colors.white,
   scaffoldBackgroundColor: Colors.white,
@@ -78,17 +81,20 @@ final ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
   inputDecorationTheme: inputTheme,
   cardTheme: CardTheme(
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      )),
+    elevation: 0,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
+  ),
   bottomSheetTheme: BottomSheetThemeData(
       modalBackgroundColor: Colors.white, shape: RoundedRectangleBorder()),
   textTheme: ThemeData.light().textTheme.apply(fontFamily: 'Circular-Std'),
   iconTheme: IconThemeData(color: Colors.black.withOpacity(0.7)),
   dialogTheme: DialogTheme(
     backgroundColor: deepBlue,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(4),
+    ),
   ),
 );
 
@@ -99,12 +105,13 @@ final systemTheme = SystemUiOverlayStyle.light.copyWith(
 class CustomSharedAxisTransition extends CustomTransition {
   @override
   Widget buildTransition(
-      BuildContext context,
-      Curve curve,
-      Alignment alignment,
-      Animation<double> animation,
-      Animation<double> secondaryAnimation,
-      Widget child) {
+    BuildContext context,
+    Curve curve,
+    Alignment alignment,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
     return SharedAxisTransition(
       animation: animation,
       secondaryAnimation: secondaryAnimation,
