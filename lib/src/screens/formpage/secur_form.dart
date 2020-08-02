@@ -41,7 +41,7 @@ class _SecurFormState extends State<SecurForm> {
               TextSpan(
                   text: 'Sec',
                   style: TextStyle(color: Theme.of(context).accentColor)),
-              TextSpan(text: 'ur', style: TextStyle(color: Colors.white))
+              TextSpan(text: 'ur', style: TextStyle(color: textColor))
             ]),
       ),
       centerTitle: true,
@@ -184,7 +184,7 @@ class _SecurFormState extends State<SecurForm> {
                       Get.back();
                     }
                   },
-                  child: Text('Save'),
+                  child: Text('Save', style: TextStyle(color: Colors.white),),
                 )
               ],
             ),

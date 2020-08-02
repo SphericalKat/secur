@@ -18,11 +18,11 @@ const BRIGHNTESS_SYSTEM = 'brightness_system';
 final InputDecorationTheme inputTheme = InputDecorationTheme(
   border: OutlineInputBorder(
     borderRadius: BorderRadius.circular(4),
-    borderSide: BorderSide(color: electricBlue),
+    borderSide: BorderSide(color: electricBlue, width: 1.4),
   ),
   enabledBorder: OutlineInputBorder(
     borderRadius: BorderRadius.circular(4),
-    borderSide: BorderSide(color: electricBlue),
+    borderSide: BorderSide(color: electricBlue, width: 1.4),
   ),
 );
 
@@ -60,6 +60,13 @@ final ThemeData darkTheme = ThemeData(
       borderRadius: BorderRadius.circular(4),
     ),
   ),
+  buttonTheme: ButtonThemeData(
+    textTheme: ButtonTextTheme.normal,
+    buttonColor: electricBlue,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(4),
+    ),
+  ),
 );
 
 final ThemeData lightTheme = ThemeData(
@@ -92,6 +99,13 @@ final ThemeData lightTheme = ThemeData(
   iconTheme: IconThemeData(color: Colors.black.withOpacity(0.7)),
   dialogTheme: DialogTheme(
     backgroundColor: deepBlue,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(4),
+    ),
+  ),
+  buttonTheme: ButtonThemeData(
+    textTheme: ButtonTextTheme.normal,
+    buttonColor: electricBlue,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(4),
     ),
