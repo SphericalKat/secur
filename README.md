@@ -12,7 +12,6 @@ Secur is used to generate TOTPs (Time Based OTPs), providing similar functionali
  - `flutter run` to launch a debug session on a connected device or emulator.
  - Feel free to fork and submit patches upstream.
 
- ## Contributors
-
-  - [Shamith](https://github.com/shamith16)
-  - [ATechnoHazard](https://github.com/ATechnoHazard)
+## Contributors
+ - [Shamith](https://github.com/shamith16)
+ - [ATechnoHazard](https://github.com/ATechnoHazard)
