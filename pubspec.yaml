@@ -31,7 +31,7 @@ dependencies:
   hive: ^1.4.2
   hive_flutter: ^0.3.1
   countdown: ^0.1.0
-  flutter_circular_chart: ^0.1.0
+  flutter_circular_chart_two: 0.1.2
   animations: ^1.1.2
   flutter_secure_storage: ^3.3.3
   shared_preferences: ^0.5.8
