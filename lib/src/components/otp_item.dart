@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:countdown/countdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_circular_chart_two/flutter_circular_chart_two.dart';
 import 'package:get/get.dart';
 import 'package:secur/src/controllers/item_selection_controller.dart';
+import 'package:secur/src/countdown/countdown.dart';
 import 'package:secur/src/models/securtotp.dart';
 import 'package:secur/src/themes/theme.dart';
 import 'package:supercharged/supercharged.dart';
