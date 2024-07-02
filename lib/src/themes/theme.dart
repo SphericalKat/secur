@@ -127,10 +127,6 @@ final ThemeData lightTheme = ThemeData(
   ),
 );
 
-final systemTheme = SystemUiOverlayStyle.light.copyWith(
-  statusBarColor: Colors.transparent,
-);
-
 class CustomSharedAxisTransition extends CustomTransition {
   @override
   Widget buildTransition(

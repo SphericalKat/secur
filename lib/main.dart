@@ -41,6 +41,14 @@ void main() async {
   // open the box using the key
   await Hive.openBox('totp', encryptionCipher: HiveAesCipher(encryptionKey));
 
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      systemNavigationBarColor: Colors.transparent,
+      statusBarColor: Colors.transparent,
+    ),
+  );
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+
   runApp(Secur());
 }
 
@@ -77,8 +85,6 @@ class SecurState extends State<Secur> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(systemTheme);
-
     return GetMaterialApp(
       enableLog: true,
       debugShowCheckedModeBanner: false,
@@ -93,11 +99,10 @@ class SecurState extends State<Secur> with WidgetsBindingObserver {
           opaque: true,
         ),
         GetPage(
-          name: '/form',
-          page: () => SecurForm(),
-          opaque: true,
-          customTransition: CustomSharedAxisTransition()
-        )
+            name: '/form',
+            page: () => SecurForm(),
+            opaque: true,
+            customTransition: CustomSharedAxisTransition())
       ],
     );
   }
