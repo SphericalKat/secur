@@ -11,7 +11,7 @@ import 'package:supercharged/supercharged.dart';
 Future<void> scanBarcode() async {
   try {
     ScanResult scanResult = await BarcodeScanner.scan();
-    if (scanResult.isBlank ||
+    if (scanResult.isBlank! ||
         scanResult.type == ResultType.Cancelled ||
         scanResult.type == ResultType.Error) {
       return;
@@ -56,7 +56,7 @@ void _showErrorSnackbar(String error) {
   );
 }
 
-SecurTOTP totpBuild(String uri) {
+SecurTOTP? totpBuild(String uri) {
   final parsedUri = Uri.parse(uri);
   final queryParams = parsedUri.queryParameters;
 
@@ -71,13 +71,13 @@ SecurTOTP totpBuild(String uri) {
 
   return SecurTOTP(
       secret: secret,
-      digits: digits.toInt() ?? 6,
+      digits: digits!.toInt() ?? 6,
       algorithm: algorithm ?? "SHA1",
       issuer: issuer,
       accountName: parsedUri.pathSegments[0]);
 }
 
-OTPAlgorithm getAlgorithm(String algorithm) {
+OTPAlgorithm getAlgorithm(String? algorithm) {
   if (algorithm == null) {
     return OTPAlgorithm.SHA1;
   }

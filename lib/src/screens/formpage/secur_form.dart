@@ -17,15 +17,15 @@ class _SecurFormState extends State<SecurForm> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  String _secret;
-  String _issuer;
-  int _interval;
-  int _digits;
-  String _algorithm;
-  String _accountName;
+  String? _secret;
+  String? _issuer;
+  int? _interval;
+  int? _digits;
+  String? _algorithm;
+  String? _accountName;
 
-  String stringValidator(String value) {
-    return value.isNullOrBlank ? 'Field cannot be empty!' : null;
+  String? stringValidator(String? value) {
+    return value.isNullOrBlank! ? 'Field cannot be empty!' : null;
   }
 
   AppBar appBar(BuildContext context) {
@@ -71,9 +71,9 @@ class _SecurFormState extends State<SecurForm> {
                     hintText: 'eg: JBSWY3DPEHPK3PXP',
                   ),
                   initialValue: _secret,
-                  validator: (String value) {
+                  validator: (String? value) {
                     if (stringValidator(value) == null) {
-                      if (value.length == 32 || value.length == 16) {
+                      if (value!.length == 32 || value.length == 16) {
                         try {
                           base32.decode(value);
                           return null;
@@ -109,7 +109,7 @@ class _SecurFormState extends State<SecurForm> {
                 DropdownButtonFormField(
                   hint: Text('interval(s)'),
                   onTap: () {
-                    FocusManager.instance.primaryFocus.unfocus();
+                    FocusManager.instance.primaryFocus!.unfocus();
                   },
                   items: interval
                       .map((e) => DropdownMenuItem<int>(
@@ -118,17 +118,17 @@ class _SecurFormState extends State<SecurForm> {
                             child: Text(e.toString()),
                           )))
                       .toList(),
-                  onChanged: (value) {
+                  onChanged: (dynamic value) {
                     _interval = value;
                   },
-                  onSaved: (value) {
+                  onSaved: (dynamic value) {
                     _interval = value ?? 30;
                   },
                 ),
                 DropdownButtonFormField(
                   hint: Text('Digits'),
                   onTap: () {
-                    FocusManager.instance.primaryFocus.unfocus();
+                    FocusManager.instance.primaryFocus!.unfocus();
                   },
                   items: digits
                       .map((e) => DropdownMenuItem<int>(
@@ -137,17 +137,17 @@ class _SecurFormState extends State<SecurForm> {
                             child: Text(e.toString()),
                           )))
                       .toList(),
-                  onChanged: (value) {
+                  onChanged: (dynamic value) {
                     _digits = value;
                   },
-                  onSaved: (value) {
+                  onSaved: (dynamic value) {
                     _digits = value ?? 6;
                   },
                 ),
                 DropdownButtonFormField(
                   hint: Text('Algorithm'),
                   onTap: () {
-                    FocusManager.instance.primaryFocus.unfocus();
+                    FocusManager.instance.primaryFocus!.unfocus();
                   },
                   decoration: InputDecoration(
                     fillColor: Theme.of(context).primaryColor,
@@ -167,18 +167,18 @@ class _SecurFormState extends State<SecurForm> {
                         ),
                       )
                       .toList(),
-                  onChanged: (value) {
+                  onChanged: (dynamic value) {
                     _algorithm = value;
                   },
-                  onSaved: (value) {
+                  onSaved: (dynamic value) {
                     _algorithm = value ?? 'SHA1';
                   },
                 ),
                 RaisedButton(
                   color: Theme.of(context).accentColor,
                   onPressed: () {
-                    if (_formKey.currentState.validate()) {
-                      _formKey.currentState.save();
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
                       TOTPController.to.saveTotp(
                         SecurTOTP(
                           secret: _secret,
@@ -189,7 +189,7 @@ class _SecurFormState extends State<SecurForm> {
                           accountName: _accountName,
                         ),
                       );
-                      _formKey.currentState.deactivate();
+                      _formKey.currentState!.deactivate();
                       Get.back();
                     }
                   },

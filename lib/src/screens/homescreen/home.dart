@@ -20,7 +20,7 @@ class Home extends StatelessWidget {
               ? null
               : buildFloatingActionButton(context),
           body: homeBody(context),
-          appBar: appBar(context, controller),
+          appBar: appBar(context, controller) as PreferredSizeWidget?,
         );
       },
     );

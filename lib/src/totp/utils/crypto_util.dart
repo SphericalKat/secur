@@ -2,7 +2,7 @@ import 'package:crypto/crypto.dart';
 import 'package:secur/src/totp/components/otp_algorithm.dart';
 
 abstract class AlgorithmUtil {
-  static Hmac createHmacFor({OTPAlgorithm algorithm, List<int> key}) {
+  static Hmac? createHmacFor({OTPAlgorithm? algorithm, List<int>? key}) {
     if (key == null) {
       return null;
     }
@@ -22,7 +22,7 @@ abstract class AlgorithmUtil {
     }
   }
 
-  static String rawValue({OTPAlgorithm algorithm}) {
+  static String? rawValue({OTPAlgorithm? algorithm}) {
     switch (algorithm) {
       case OTPAlgorithm.SHA1:
         return 'SHA1';

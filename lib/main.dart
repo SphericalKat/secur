@@ -26,7 +26,7 @@ void main() async {
   Get.put(prefs);
 
   // attempt to fetch key from secure storage
-  String result = await storage.read(key: 'encryptionKey');
+  String? result = await storage.read(key: 'encryptionKey');
   List<int> encryptionKey;
 
   // if key does not exist already
@@ -53,18 +53,18 @@ class Secur extends StatefulWidget {
 }
 
 class SecurState extends State<Secur> with WidgetsBindingObserver {
-  ThemeData theme;
+  ThemeData? theme;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance!.addObserver(this);
     theme = getTheme();
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance!.removeObserver(this);
     super.dispose();
   }
 

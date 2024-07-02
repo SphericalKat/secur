@@ -120,8 +120,8 @@ class CustomSharedAxisTransition extends CustomTransition {
   @override
   Widget buildTransition(
     BuildContext context,
-    Curve curve,
-    Alignment alignment,
+    Curve? curve,
+    Alignment? alignment,
     Animation<double> animation,
     Animation<double> secondaryAnimation,
     Widget child,
@@ -143,7 +143,7 @@ ThemeData getTheme() {
   var brightness = prefs.getString(PREFS_BRIGHTNESS) ?? BRIGHNTESS_SYSTEM;
   switch (brightness) {
     case BRIGHNTESS_SYSTEM:
-      var sysBrightness = WidgetsBinding.instance.window.platformBrightness;
+      var sysBrightness = WidgetsBinding.instance!.window.platformBrightness;
       return sysBrightness == Brightness.light ? lightTheme : darkTheme;
 
     case BRIGHNTESS_LIGHT:

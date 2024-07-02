@@ -17,12 +17,12 @@ class SecurTOTPAdapter extends TypeAdapter<SecurTOTP> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return SecurTOTP(
-      secret: fields[3] as String,
-      algorithm: fields[0] as String,
-      digits: fields[1] as int,
-      interval: fields[2] as int,
-      issuer: fields[4] as String,
-      accountName: fields[5] as String,
+      secret: fields[3] as String?,
+      algorithm: fields[0] as String?,
+      digits: fields[1] as int?,
+      interval: fields[2] as int?,
+      issuer: fields[4] as String?,
+      accountName: fields[5] as String?,
     );
   }
 

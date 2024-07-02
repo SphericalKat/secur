@@ -13,7 +13,7 @@ import 'package:supercharged/supercharged.dart';
 class OTPItem extends StatefulWidget {
   final SecurTOTP securTOTP;
 
-  const OTPItem({Key key, @required this.securTOTP}) : super(key: key);
+  const OTPItem({Key? key, required this.securTOTP}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => OTPItemState(securTOTP);
@@ -22,8 +22,8 @@ class OTPItem extends StatefulWidget {
 class OTPItemState extends State<OTPItem> {
   String totp = "";
   int timeVal = 0;
-  CountDown cd;
-  StreamSubscription<Duration> sub;
+  late CountDown cd;
+  late StreamSubscription<Duration?> sub;
   final SecurTOTP securTOTP;
   final GlobalKey<AnimatedCircularChartState> _chartKey =
       new GlobalKey<AnimatedCircularChartState>();
@@ -38,7 +38,7 @@ class OTPItemState extends State<OTPItem> {
     });
 
     sub.onData((data) {
-      if (timeVal == data.inSeconds) return;
+      if (timeVal == data!.inSeconds) return;
       if (this.mounted) {
         setState(() {
           timeVal = data.inSeconds;
@@ -46,10 +46,10 @@ class OTPItemState extends State<OTPItem> {
             totp = securTOTP.getTotp();
           }
 
-          var percent = (timeVal / securTOTP.interval) * 100;
+          var percent = (timeVal / securTOTP.interval!) * 100;
 
           if (_chartKey.currentState != null) {
-            _chartKey.currentState.updateData(
+            _chartKey.currentState!.updateData(
               [
                 CircularStackEntry(
                   [
@@ -141,7 +141,7 @@ class OTPItemState extends State<OTPItem> {
                   children: <Widget>[
                     Center(
                       child: Text(
-                              securTOTP.accountName.replaceFirst(":", ": ") ?? securTOTP.issuer,
+                              securTOTP.accountName!.replaceFirst(":", ": ") ?? securTOTP.issuer!,
                               style: TextStyle(
                                 fontSize: 18,
                                 color:

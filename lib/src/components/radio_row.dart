@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class RadioRow extends StatelessWidget {
-  final bool isEnabled;
-  final String text;
+  final bool? isEnabled;
+  final String? text;
 
-  const RadioRow({Key key, this.isEnabled, this.text}) : super(key: key);
+  const RadioRow({Key? key, this.isEnabled, this.text}) : super(key: key);
 
 
   @override
@@ -13,10 +13,10 @@ class RadioRow extends StatelessWidget {
       children: <Widget>[
         Radio(
           groupValue: 1,
-          value: isEnabled ? 1 : 0,
-          onChanged: (value){},
+          value: isEnabled! ? 1 : 0,
+          onChanged: (dynamic value){},
         ),
-        Text(text)
+        Text(text!)
       ],
     );
   }
