@@ -250,7 +250,7 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: main
+      ref: "v1.0.0"
       resolved-ref: d601842da09d9ebf339bd5c1eeb12f48ed57b0b3
       url: "https://git.kat.directory/sphericalkat/flutter_circular_chart"
     source: git
