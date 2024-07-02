@@ -43,7 +43,7 @@ Widget appBar(BuildContext context, ItemSelectionController controller) {
               TextSpan(text: 'ur', style: TextStyle(color: textColor))
             ]),
       ),
-      actions: <Widget>[buildPopupMenu()],
+      actions: <Widget>[],
       centerTitle: true,
       elevation: 0,
     );

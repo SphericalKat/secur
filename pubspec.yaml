@@ -34,7 +34,7 @@ dependencies:
       url: https://git.kat.directory/sphericalkat/flutter_circular_chart
       ref: v1.0.0
   animations: ^2.0.2
-  flutter_secure_storage: ^4.0.0
+  flutter_secure_storage: ^8.1.0
   shared_preferences: ^2.0.15
   base32: ^2.1.3
 
