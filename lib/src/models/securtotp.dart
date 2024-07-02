@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:secur/src/services/barcode_scan.dart';
 import 'package:secur/src/totp/totp.dart';

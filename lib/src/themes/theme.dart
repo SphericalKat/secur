@@ -1,4 +1,5 @@
 import 'package:animations/animations.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -154,7 +155,7 @@ ThemeData getTheme() {
   var brightness = prefs.getString(PREFS_BRIGHTNESS) ?? BRIGHNTESS_SYSTEM;
   switch (brightness) {
     case BRIGHNTESS_SYSTEM:
-      var sysBrightness = WidgetsBinding.instance!.window.platformBrightness;
+      var sysBrightness = PlatformDispatcher.instance.platformBrightness;
       return sysBrightness == Brightness.light ? lightTheme : darkTheme;
 
     case BRIGHNTESS_LIGHT:
