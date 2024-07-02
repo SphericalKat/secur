@@ -1,11 +1,11 @@
-import 'package:barcode_scan/barcode_scan.dart';
-import 'package:dart_otp/dart_otp.dart';
+import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:secur/src/controllers/totp_controller.dart';
 import 'package:secur/src/models/securtotp.dart';
+import 'package:secur/src/totp/components/otp_algorithm.dart';
 import 'package:supercharged/supercharged.dart';
 
 Future<void> scanBarcode() async {

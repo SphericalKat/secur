@@ -55,7 +55,7 @@ class OTPItemState extends State<OTPItem> {
                   [
                     CircularSegmentEntry(
                       percent,
-                      Theme.of(context).accentColor,
+                      Theme.of(context).colorScheme.secondary,
                       rankKey: 'completed',
                     ),
                     CircularSegmentEntry(

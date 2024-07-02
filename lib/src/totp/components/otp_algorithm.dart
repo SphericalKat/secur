@@ -1,0 +1,1 @@
+enum OTPAlgorithm { SHA1, SHA256, SHA384, SHA512 }
