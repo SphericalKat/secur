@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:secur/src/components/otp_item.dart';
@@ -40,7 +39,7 @@ Widget appBar(BuildContext context, ItemSelectionController controller) {
             children: [
               TextSpan(
                   text: 'Sec',
-                  style: TextStyle(color: Theme.of(context).accentColor)),
+                  style: TextStyle(color: Theme.of(context).colorScheme.secondary)),
               TextSpan(text: 'ur', style: TextStyle(color: textColor))
             ]),
       ),
@@ -65,7 +64,7 @@ Widget appBar(BuildContext context, ItemSelectionController controller) {
             title: Text(
               'Warning!',
               style: TextStyle(
-                color: Theme.of(context).accentColor,
+                color: Theme.of(context).colorScheme.secondary,
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
@@ -80,23 +79,27 @@ Widget appBar(BuildContext context, ItemSelectionController controller) {
               ),
             ),
             actions: <Widget>[
-              FlatButton(
+              TextButton(
                 child: Text(
                   'Yes',
                   style: TextStyle(
-                      color: Theme.of(context).accentColor, fontSize: 18),
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontSize: 18),
                 ),
                 onPressed: () {
                   Get.back();
-                  TOTPController.to
-                      .deleteTotps(ItemSelectionController.to.selectedItems);
+                  TOTPController.to.deleteTotps(
+                    ItemSelectionController.to.selectedItems,
+                  );
                 },
               ),
-              FlatButton(
+              TextButton(
                 child: Text(
                   'No',
                   style: TextStyle(
-                      color: Theme.of(context).accentColor, fontSize: 18),
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontSize: 18,
+                  ),
                 ),
                 onPressed: () => Get.back(),
               )
@@ -161,7 +164,7 @@ Widget homeBody(context) => SafeArea(
                     'Nothing to see here',
                     style: TextStyle(
                       fontSize: 32,
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
                   Text('Add an account to get started',

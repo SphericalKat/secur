@@ -40,7 +40,7 @@ class _SecurFormState extends State<SecurForm> {
             children: [
               TextSpan(
                   text: 'Sec',
-                  style: TextStyle(color: Theme.of(context).accentColor)),
+                  style: TextStyle(color: Theme.of(context).colorScheme.secondary)),
               TextSpan(text: 'ur', style: TextStyle(color: textColor))
             ]),
       ),
@@ -174,8 +174,7 @@ class _SecurFormState extends State<SecurForm> {
                     _algorithm = value ?? 'SHA1';
                   },
                 ),
-                RaisedButton(
-                  color: Theme.of(context).accentColor,
+                ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();

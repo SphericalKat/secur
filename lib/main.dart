@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:secur/src/models/securtotp.dart';
 import 'package:secur/src/screens/formpage/secur_form.dart';
@@ -40,7 +39,7 @@ void main() async {
   }
 
   // open the box using the key
-  await Hive.openBox('totp', encryptionKey: encryptionKey);
+  await Hive.openBox('totp', encryptionCipher: HiveAesCipher(encryptionKey));
 
   runApp(Secur());
 }
@@ -58,13 +57,13 @@ class SecurState extends State<Secur> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
     theme = getTheme();
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 

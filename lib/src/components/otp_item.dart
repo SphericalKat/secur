@@ -89,7 +89,7 @@ class OTPItemState extends State<OTPItem> {
       padding: EdgeInsets.only(left: 8, right: 8),
       child: Card(
         color: isItemSelected
-            ? Theme.of(context).accentColor
+            ? Theme.of(context).colorScheme.secondary
             : Theme.of(context).cardColor,
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
@@ -130,7 +130,7 @@ class OTPItemState extends State<OTPItem> {
                           fontSize: 32,
                           color: isItemSelected
                               ? Colors.white
-                              : Theme.of(context).accentColor,
+                              : Theme.of(context).colorScheme.secondary,
                           fontWeight: FontWeight.w500),
                     )
                   ],
@@ -141,7 +141,7 @@ class OTPItemState extends State<OTPItem> {
                   children: <Widget>[
                     Center(
                       child: Text(
-                              securTOTP.accountName!.replaceFirst(":", ": ") ?? securTOTP.issuer!,
+                              securTOTP.accountName?.replaceFirst(":", ": ") ?? securTOTP.issuer!,
                               style: TextStyle(
                                 fontSize: 18,
                                 color:
@@ -163,7 +163,7 @@ class OTPItemState extends State<OTPItem> {
                                 [
                                   CircularSegmentEntry(
                                     0,
-                                    Theme.of(context).accentColor,
+                                    Theme.of(context).colorScheme.secondary,
                                     rankKey: 'completed',
                                   ),
                                   CircularSegmentEntry(

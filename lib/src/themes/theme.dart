@@ -27,7 +27,7 @@ final InputDecorationTheme inputTheme = InputDecorationTheme(
 );
 
 final ThemeData darkTheme = ThemeData(
-  accentColor: electricBlue,
+  // accentColor: electricBlue,
   primaryColor: deepBlue,
   popupMenuTheme: PopupMenuThemeData(
     shape: RoundedRectangleBorder(
@@ -35,13 +35,13 @@ final ThemeData darkTheme = ThemeData(
     ),
   ),
   primaryColorDark: deepBlue,
-  backgroundColor: deepBlue,
+  // backgroundColor: deepBlue,
   scaffoldBackgroundColor: deepBlue,
   cardColor: deepBlueSecondary,
   applyElevationOverlayColor: true,
   brightness: Brightness.dark,
   inputDecorationTheme: inputTheme,
-  toggleableActiveColor: electricBlue,
+  // toggleableActiveColor: electricBlue,
   cardTheme: CardTheme(
     elevation: 0,
     shape: RoundedRectangleBorder(
@@ -70,8 +70,8 @@ final ThemeData darkTheme = ThemeData(
 );
 
 final ThemeData lightTheme = ThemeData(
-  accentColor: electricBlue,
-  toggleableActiveColor: electricBlue,
+  // accentColor: electricBlue,
+  // toggleableActiveColor: electricBlue,
   primaryColor: Colors.white,
   popupMenuTheme: PopupMenuThemeData(
     shape: RoundedRectangleBorder(
@@ -80,7 +80,7 @@ final ThemeData lightTheme = ThemeData(
     color: Colors.white,
   ),
   primaryColorDark: Colors.white,
-  backgroundColor: Colors.white,
+  // backgroundColor: Colors.white,
   scaffoldBackgroundColor: Colors.white,
   cardColor: lightGrey,
   fontFamily: "Circular-Std",
