@@ -113,7 +113,7 @@ class OTPItemState extends State<OTPItem> {
                         'Done!',
                         'OTP has been copied to clipboard.',
                         snackPosition: SnackPosition.BOTTOM,
-                        colorText: Colors.black,
+                        // colorText: Colors.black,
                       ));
             }
           },

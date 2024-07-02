@@ -11,7 +11,7 @@ import 'package:supercharged/supercharged.dart';
 Future<void> scanBarcode() async {
   try {
     ScanResult scanResult = await BarcodeScanner.scan();
-    if (scanResult.isNullOrBlank ||
+    if (scanResult.isBlank ||
         scanResult.type == ResultType.Cancelled ||
         scanResult.type == ResultType.Error) {
       return;
