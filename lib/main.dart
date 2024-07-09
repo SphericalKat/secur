@@ -19,7 +19,7 @@ void main() async {
   Hive.registerAdapter(SecurTOTPAdapter());
 
   // init secure storage
-  final storage = FlutterSecureStorage();
+  const storage = FlutterSecureStorage();
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
   Get.put(prefs);
@@ -49,10 +49,12 @@ void main() async {
   );
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
-  runApp(Secur());
+  runApp(const Secur());
 }
 
 class Secur extends StatefulWidget {
+  const Secur({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return SecurState();
@@ -94,15 +96,16 @@ class SecurState extends State<Secur> with WidgetsBindingObserver {
       getPages: [
         GetPage(
           name: '/',
-          page: () => Home(),
+          page: () => const Home(),
           customTransition: CustomSharedAxisTransition(),
           opaque: true,
         ),
         GetPage(
-            name: '/form',
-            page: () => SecurForm(),
-            opaque: true,
-            customTransition: CustomSharedAxisTransition())
+          name: '/form',
+          page: () => const SecurForm(),
+          opaque: true,
+          customTransition: CustomSharedAxisTransition(),
+        )
       ],
     );
   }

@@ -60,11 +60,11 @@ class SecurTOTP extends HiveObject {
 
   @override
   String toString() {
-    return "SecurOTP{ 'secret': ${this.secret}, "
-        "'algorithm': ${this.algorithm}, "
-        "'digits': ${this.digits}, "
-        "'interval': ${this.interval}, "
-        "'issuer': ${this.issuer}, "
-        "'accountName': ${this.accountName} }";
+    return "SecurOTP{ 'secret': $secret, "
+        "'algorithm': $algorithm, "
+        "'digits': $digits, "
+        "'interval': $interval, "
+        "'issuer': $issuer, "
+        "'accountName': $accountName }";
   }
 }

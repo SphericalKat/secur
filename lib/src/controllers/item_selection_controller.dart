@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 class ItemSelectionController extends GetxController {
-  Set selectedItems = Set<String?>();
+  Set selectedItems = <String?>{};
 
   static ItemSelectionController get to => Get.find();
 

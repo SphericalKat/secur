@@ -1,7 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supercharged/supercharged.dart';
@@ -59,7 +58,7 @@ final ThemeData darkTheme = ThemeData(
   textTheme: ThemeData.dark().textTheme.apply(fontFamily: 'Circular-Std'),
   bottomSheetTheme: BottomSheetThemeData(
     modalBackgroundColor: deepBlueSecondary,
-    shape: RoundedRectangleBorder(),
+    shape: const RoundedRectangleBorder(),
   ),
   iconTheme: IconThemeData(color: Colors.white.withOpacity(0.7)),
   dialogTheme: DialogTheme(
@@ -109,7 +108,7 @@ final ThemeData lightTheme = ThemeData(
       borderRadius: BorderRadius.circular(10),
     ),
   ),
-  bottomSheetTheme: BottomSheetThemeData(
+  bottomSheetTheme: const BottomSheetThemeData(
       modalBackgroundColor: Colors.white, shape: RoundedRectangleBorder()),
   textTheme: ThemeData.light().textTheme.apply(fontFamily: 'Circular-Std'),
   iconTheme: IconThemeData(color: Colors.black.withOpacity(0.7)),

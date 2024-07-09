@@ -9,6 +9,8 @@ import 'package:secur/src/themes/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatelessWidget {
+  const Home({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ItemSelectionController>(
@@ -31,7 +33,7 @@ Widget appBar(BuildContext context, ItemSelectionController controller) {
     return AppBar(
       title: RichText(
         text: TextSpan(
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
               fontFamily: "Circular-Std",
@@ -39,11 +41,12 @@ Widget appBar(BuildContext context, ItemSelectionController controller) {
             children: [
               TextSpan(
                   text: 'Sec',
-                  style: TextStyle(color: Theme.of(context).colorScheme.secondary)),
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.secondary)),
               TextSpan(text: 'ur', style: TextStyle(color: textColor))
             ]),
       ),
-      actions: <Widget>[],
+      actions: const <Widget>[],
       centerTitle: true,
       elevation: 0,
     );
@@ -51,7 +54,7 @@ Widget appBar(BuildContext context, ItemSelectionController controller) {
     return AppBar(
       title: Text(controller.selectedItems.length.toString()),
       leading: IconButton(
-        icon: Icon(Icons.close),
+        icon: const Icon(Icons.close),
         onPressed: () {
           controller.removeAllItems();
         },
@@ -59,7 +62,7 @@ Widget appBar(BuildContext context, ItemSelectionController controller) {
       elevation: 0,
       actions: <Widget>[
         IconButton(
-          icon: Icon(Icons.delete),
+          icon: const Icon(Icons.delete),
           onPressed: () => Get.dialog(AlertDialog(
             title: Text(
               'Warning!',
@@ -70,7 +73,7 @@ Widget appBar(BuildContext context, ItemSelectionController controller) {
               ),
             ),
             backgroundColor: Theme.of(context).primaryColor,
-            content: SingleChildScrollView(
+            content: const SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
                   Text('Choosing yes will delete the selected items.'),
@@ -112,32 +115,32 @@ Widget appBar(BuildContext context, ItemSelectionController controller) {
 }
 
 Widget buildPopupMenu() => PopupMenuButton<String>(
-      icon: Icon(Icons.brightness_4),
+      icon: const Icon(Icons.brightness_4),
       itemBuilder: (BuildContext context) {
         SharedPreferences prefs = Get.find();
         var brightness = prefs.getString(PREFS_BRIGHTNESS) ?? BRIGHNTESS_SYSTEM;
 
         return [
           PopupMenuItem<String>(
+            value: BRIGHNTESS_LIGHT,
             child: RadioRow(
               text: 'Light theme',
               isEnabled: brightness == BRIGHNTESS_LIGHT,
             ),
-            value: BRIGHNTESS_LIGHT,
           ),
           PopupMenuItem<String>(
+            value: BRIGHNTESS_DARK,
             child: RadioRow(
               text: 'Dark theme',
               isEnabled: brightness == BRIGHNTESS_DARK,
             ),
-            value: BRIGHNTESS_DARK,
           ),
           PopupMenuItem<String>(
+            value: BRIGHNTESS_SYSTEM,
             child: RadioRow(
               text: 'System theme',
               isEnabled: brightness == BRIGHNTESS_SYSTEM,
             ),
-            value: BRIGHNTESS_SYSTEM,
           ),
         ];
       },
@@ -149,8 +152,7 @@ Widget buildPopupMenu() => PopupMenuButton<String>(
     );
 
 Widget homeBody(context) => SafeArea(
-      child: Container(
-          child: GetBuilder<TOTPController>(
+      child: GetBuilder<TOTPController>(
         init: TOTPController(),
         builder: (controller) {
           var values = controller.db.values.toList();
@@ -167,7 +169,7 @@ Widget homeBody(context) => SafeArea(
                       color: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
-                  Text('Add an account to get started',
+                  const Text('Add an account to get started',
                       style: TextStyle(fontSize: 16))
                 ],
               ),
@@ -180,7 +182,7 @@ Widget homeBody(context) => SafeArea(
                 });
           }
         },
-      )),
+      ),
     );
 
 FloatingActionButton buildFloatingActionButton(BuildContext context) {
@@ -189,11 +191,11 @@ FloatingActionButton buildFloatingActionButton(BuildContext context) {
       _bottomSheet(context);
     },
     tooltip: 'Add an account',
-    child: Icon(
+    elevation: 1.0,
+    child: const Icon(
       Icons.add,
       color: Colors.white,
     ),
-    elevation: 1.0,
   );
 }
 
@@ -201,27 +203,25 @@ void _bottomSheet(context) {
   showModalBottomSheet(
     context: context,
     builder: (BuildContext bc) {
-      return Container(
-        child: Wrap(
-          children: [
-            ListTile(
-              leading: Icon(Icons.fullscreen),
-              title: Text("Scan QR code"),
-              onTap: () async {
-                Get.back();
-                await scanBarcode();
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.keyboard),
-              title: Text("Enter a provided key"),
-              onTap: () {
-                Get.back();
-                Get.toNamed('/form');
-              },
-            ),
-          ],
-        ),
+      return Wrap(
+        children: [
+          ListTile(
+            leading: const Icon(Icons.fullscreen),
+            title: const Text("Scan QR code"),
+            onTap: () async {
+              Get.back();
+              await scanBarcode();
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.keyboard),
+            title: const Text("Enter a provided key"),
+            onTap: () {
+              Get.back();
+              Get.toNamed('/form');
+            },
+          ),
+        ],
       );
     },
   );

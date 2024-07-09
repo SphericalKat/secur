@@ -6,11 +6,13 @@ import 'package:secur/src/models/securtotp.dart';
 import 'package:secur/src/themes/theme.dart';
 
 class SecurForm extends StatefulWidget {
+  const SecurForm({super.key});
+
   @override
-  _SecurFormState createState() => _SecurFormState();
+  SecurFormState createState() => SecurFormState();
 }
 
-class _SecurFormState extends State<SecurForm> {
+class SecurFormState extends State<SecurForm> {
   final List<int> interval = [15, 30, 60, 120, 300, 600];
   final List<int> digits = [6, 7, 8];
   final List<String> algorithm = ['SHA1', 'SHA256', 'SHA384', 'SHA512'];
@@ -32,7 +34,7 @@ class _SecurFormState extends State<SecurForm> {
     return AppBar(
       title: RichText(
         text: TextSpan(
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
               fontFamily: "Circular-Std",
@@ -57,7 +59,7 @@ class _SecurFormState extends State<SecurForm> {
       body: Form(
         key: _formKey,
         child: Container(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -66,7 +68,7 @@ class _SecurFormState extends State<SecurForm> {
                   onSaved: (newValue) {
                     _secret = newValue;
                   },
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Secret key',
                     hintText: 'eg: JBSWY3DPEHPK3PXP',
                   ),
@@ -89,7 +91,7 @@ class _SecurFormState extends State<SecurForm> {
                   onSaved: (newValue) {
                     _accountName = newValue;
                   },
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Account Name',
                   ),
                   initialValue: _accountName,
@@ -99,7 +101,7 @@ class _SecurFormState extends State<SecurForm> {
                   onSaved: (newValue) {
                     _issuer = newValue;
                   },
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Issuer',
                     hintText: 'eg: Google',
                   ),
@@ -107,16 +109,14 @@ class _SecurFormState extends State<SecurForm> {
                   validator: stringValidator,
                 ),
                 DropdownButtonFormField(
-                  hint: Text('interval(s)'),
+                  hint: const Text('interval(s)'),
                   onTap: () {
                     FocusManager.instance.primaryFocus!.unfocus();
                   },
                   items: interval
                       .map((e) => DropdownMenuItem<int>(
                           value: e,
-                          child: Container(
-                            child: Text(e.toString()),
-                          )))
+                          child: Text(e.toString())))
                       .toList(),
                   onChanged: (dynamic value) {
                     _interval = value;
@@ -126,16 +126,14 @@ class _SecurFormState extends State<SecurForm> {
                   },
                 ),
                 DropdownButtonFormField(
-                  hint: Text('Digits'),
+                  hint: const Text('Digits'),
                   onTap: () {
                     FocusManager.instance.primaryFocus!.unfocus();
                   },
                   items: digits
                       .map((e) => DropdownMenuItem<int>(
                           value: e,
-                          child: Container(
-                            child: Text(e.toString()),
-                          )))
+                          child: Text(e.toString())))
                       .toList(),
                   onChanged: (dynamic value) {
                     _digits = value;
@@ -145,7 +143,7 @@ class _SecurFormState extends State<SecurForm> {
                   },
                 ),
                 DropdownButtonFormField(
-                  hint: Text('Algorithm'),
+                  hint: const Text('Algorithm'),
                   onTap: () {
                     FocusManager.instance.primaryFocus!.unfocus();
                   },
@@ -158,10 +156,10 @@ class _SecurFormState extends State<SecurForm> {
                           value: e,
                           child: SizedBox(
                             child: DecoratedBox(
-                              child: Text(e.toString()),
                               decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColor
                               ),
+                              child: Text(e.toString()),
                             ),
                           ),
                         ),
@@ -192,7 +190,7 @@ class _SecurFormState extends State<SecurForm> {
                       Get.back();
                     }
                   },
-                  child: Text(
+                  child: const Text(
                     'Save',
                     style: TextStyle(
                       color: Colors.white,

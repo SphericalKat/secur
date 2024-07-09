@@ -1,8 +1,3 @@
-///
-/// @module   : OTP module to generate the password
-/// @author   : Gin (gin.lance.inside@hotmail.com)
-///
-
 import 'dart:math';
 import 'package:base32/base32.dart';
 
@@ -20,10 +15,10 @@ abstract class OTP {
   String? secret;
 
   /// The crypto algorithm used on HMAC encoding.
-  OTPAlgorithm? algorithm;
+  OTPAlgorithm? algorithmType;
 
   /// The type of the token.
-  OTPType get type;
+  OTPType get tokenType;
 
   /// To access custom properties when generating the url.
   Map<String, dynamic> get extraUrlProperties;
@@ -36,13 +31,11 @@ abstract class OTP {
   /// Will throw an exception if the line above isn't satisfied.
   ///
   OTP(
-      {required String secret,
-      int digits = 6,
+      {required String this.secret,
+      this.digits = 6,
       OTPAlgorithm algorithm = OTPAlgorithm.SHA1})
       : assert(digits >= 6 && digits <= 8) {
-    this.secret = secret;
-    this.digits = digits;
-    this.algorithm = algorithm;
+    algorithmType = algorithm;
   }
 
   ///
@@ -55,14 +48,15 @@ abstract class OTP {
   ///
   String generateOTP({int? input, OTPAlgorithm algorithm = OTPAlgorithm.SHA1}) {
     /// base32 decode the secret
-    var hmacKey = base32.decode(this.secret!);
+    var hmacKey = base32.decode(secret!);
 
     /// initial the HMAC-SHA1 object
     var hmacSha =
         AlgorithmUtil.createHmacFor(algorithm: algorithm, key: hmacKey)!;
 
     /// get hmac answer
-    var hmac = hmacSha.convert(Util.intToBytelist(input: input) as List<int>).bytes;
+    var hmac =
+        hmacSha.convert(Util.intToBytelist(input: input) as List<int>).bytes;
 
     /// calculate the init offset
     int offset = hmac[hmac.length - 1] & 0xf;
@@ -74,8 +68,8 @@ abstract class OTP {
         (hmac[offset + 3] & 0xff));
 
     /// get the initial string code
-    var strCode = (code % pow(10, this.digits)).toString();
-    strCode = strCode.padLeft(this.digits, '0');
+    var strCode = (code % pow(10, digits)).toString();
+    strCode = strCode.padLeft(digits, '0');
 
     return strCode;
   }
@@ -87,17 +81,17 @@ abstract class OTP {
   /// All the remaining OTP fields will be exported.
   ///
   String generateUrl({String? issuer, String? account}) {
-    final _secret = this.secret;
-    final _type = OTPUtil.otpTypeValue(type: type);
-    final _account = Uri.encodeComponent(account ?? '');
-    final _issuer = Uri.encodeQueryComponent(issuer ?? '');
+    final secret = this.secret;
+    final type = OTPUtil.otpTypeValue(type: tokenType);
+    final account0 = Uri.encodeComponent(account ?? '');
+    final issuer0 = Uri.encodeQueryComponent(issuer ?? '');
 
-    final _algorithm = AlgorithmUtil.rawValue(algorithm: algorithm);
-    final _extra = extraUrlProperties
+    final algorithm = AlgorithmUtil.rawValue(algorithm: algorithmType);
+    final extra = extraUrlProperties
         .map((key, value) => MapEntry(key, "$key=$value"))
         .values
         .join('&');
 
-    return 'otpauth://$_type/$_account?secret=$_secret&issuer=$_issuer&digits=$digits&algorithm=$_algorithm&$_extra';
+    return 'otpauth://$type/$account0?secret=$secret&issuer=$issuer0&digits=$digits&algorithm=$algorithm&$extra';
   }
 }

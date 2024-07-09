@@ -13,10 +13,10 @@ import 'package:supercharged/supercharged.dart';
 class OTPItem extends StatefulWidget {
   final SecurTOTP securTOTP;
 
-  const OTPItem({Key? key, required this.securTOTP}) : super(key: key);
+  const OTPItem({super.key, required this.securTOTP});
 
   @override
-  State<StatefulWidget> createState() => OTPItemState(securTOTP);
+  State<StatefulWidget> createState() => OTPItemState();
 }
 
 class OTPItemState extends State<OTPItem> {
@@ -24,11 +24,9 @@ class OTPItemState extends State<OTPItem> {
   int timeVal = 0;
   late CountDown cd;
   late StreamSubscription<Duration?> sub;
-  final SecurTOTP securTOTP;
+  late SecurTOTP securTOTP;
   final GlobalKey<AnimatedCircularChartState> _chartKey =
-      new GlobalKey<AnimatedCircularChartState>();
-
-  OTPItemState(this.securTOTP);
+      GlobalKey<AnimatedCircularChartState>();
 
   void countdown() {
     cd = CountDown(30.seconds, refresh: 0.5.seconds);
@@ -39,14 +37,14 @@ class OTPItemState extends State<OTPItem> {
 
     sub.onData((data) {
       if (timeVal == data!.inSeconds) return;
-      if (this.mounted) {
+      if (mounted) {
         setState(() {
           timeVal = data.inSeconds;
           if (timeVal == 0) {
             totp = securTOTP.getTotp();
           }
 
-          var percent = (timeVal / securTOTP.interval!) * 100;
+          var percent = (timeVal / securTOTP.interval) * 100;
 
           if (_chartKey.currentState != null) {
             _chartKey.currentState!.updateData(
@@ -75,6 +73,7 @@ class OTPItemState extends State<OTPItem> {
   @override
   void initState() {
     super.initState();
+    securTOTP = widget.securTOTP;
     totp = securTOTP.getTotp();
     countdown();
   }
@@ -86,7 +85,7 @@ class OTPItemState extends State<OTPItem> {
         ItemSelectionController.to.selectedItems.contains(totpKey);
 
     return Padding(
-      padding: EdgeInsets.only(left: 8, right: 8),
+      padding: const EdgeInsets.only(left: 8, right: 8),
       child: Card(
         color: isItemSelected
             ? Theme.of(context).colorScheme.secondary
@@ -108,17 +107,19 @@ class OTPItemState extends State<OTPItem> {
                 ItemSelectionController.to.removeSelectedItem(totpKey);
               }
             } else {
-              Clipboard.setData(ClipboardData(text: totp))
-                  .then((value) => Get.snackbar(
-                        'Done!',
-                        'OTP has been copied to clipboard.',
-                        snackPosition: SnackPosition.BOTTOM,
-                        // colorText: Colors.black,
-                      ));
+              Clipboard.setData(ClipboardData(text: totp)).then(
+                (value) => Get.snackbar(
+                  'Done!',
+                  'OTP has been copied to clipboard.',
+                  snackPosition: SnackPosition.BOTTOM,
+                  // colorText: Colors.black,
+                ),
+              );
             }
           },
           child: Padding(
-            padding: EdgeInsets.only(top: 18, bottom: 18, left: 16, right: 16),
+            padding:
+                const EdgeInsets.only(top: 18, bottom: 18, left: 16, right: 16),
             child: Column(
               children: <Widget>[
                 Row(
@@ -127,11 +128,12 @@ class OTPItemState extends State<OTPItem> {
                     Text(
                       '${totp.substring(0, totp.length ~/ 2)} ${totp.substring(totp.length ~/ 2)}',
                       style: TextStyle(
-                          fontSize: 32,
-                          color: isItemSelected
-                              ? Colors.white
-                              : Theme.of(context).colorScheme.secondary,
-                          fontWeight: FontWeight.w500),
+                        fontSize: 32,
+                        color: isItemSelected
+                            ? Colors.white
+                            : Theme.of(context).colorScheme.secondary,
+                        fontWeight: FontWeight.w500,
+                      ),
                     )
                   ],
                 ),
@@ -141,16 +143,16 @@ class OTPItemState extends State<OTPItem> {
                   children: <Widget>[
                     Center(
                       child: Text(
-                              securTOTP.accountName?.replaceFirst(":", ": ") ?? securTOTP.issuer!,
-                              style: TextStyle(
-                                fontSize: 18,
-                                color:
-                                    isItemSelected ? Colors.white : textColor,
-                              ),
-                            ),
+                        securTOTP.accountName?.replaceFirst(":", ": ") ??
+                            securTOTP.issuer!,
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: isItemSelected ? Colors.white : textColor,
+                        ),
+                      ),
                     ),
                     isItemSelected
-                        ? Container(
+                        ? const SizedBox(
                             width: 32,
                             height: 32,
                           )
@@ -167,8 +169,10 @@ class OTPItemState extends State<OTPItem> {
                                     rankKey: 'completed',
                                   ),
                                   CircularSegmentEntry(
-                                      100, Theme.of(context).cardColor,
-                                      rankKey: 'remaining')
+                                    100,
+                                    Theme.of(context).cardColor,
+                                    rankKey: 'remaining',
+                                  )
                                 ],
                                 rankKey: 'progress',
                               )

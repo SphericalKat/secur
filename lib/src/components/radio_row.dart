@@ -4,7 +4,7 @@ class RadioRow extends StatelessWidget {
   final bool? isEnabled;
   final String? text;
 
-  const RadioRow({Key? key, this.isEnabled, this.text}) : super(key: key);
+  const RadioRow({super.key, this.isEnabled, this.text});
 
 
   @override

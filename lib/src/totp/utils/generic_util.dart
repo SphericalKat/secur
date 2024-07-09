@@ -14,10 +14,10 @@ abstract class Util {
   /// @return {Int}
   ///
   static int timeFormat({required DateTime time, required int interval}) {
-    final _timeStr = time.millisecondsSinceEpoch.toString();
-    final _formatTime = _timeStr.substring(0, _timeStr.length - 3);
+    final timeStr = time.millisecondsSinceEpoch.toString();
+    final formatTime = timeStr.substring(0, timeStr.length - 3);
 
-    return int.parse(_formatTime) ~/ interval;
+    return int.parse(formatTime) ~/ interval;
   }
 
   ///
@@ -30,15 +30,15 @@ abstract class Util {
   /// @return {List}
   ///
   static List intToBytelist({int? input, int padding = 8}) {
-    List<int> _result = [];
-    var _input = input;
-    while (_input != 0) {
-      _result.add(_input! & 0xff);
-      _input >>= padding;
+    List<int> result = [];
+    var input0 = input;
+    while (input0 != 0) {
+      result.add(input0! & 0xff);
+      input0 >>= padding;
     }
-    _result.addAll(List<int>.generate(padding, (_) => 0));
-    _result = _result.sublist(0, padding);
-    _result = _result.reversed.toList();
-    return _result;
+    result.addAll(List<int>.generate(padding, (_) => 0));
+    result = result.sublist(0, padding);
+    result = result.reversed.toList();
+    return result;
   }
 }
