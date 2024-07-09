@@ -25,7 +25,7 @@ class _SecurFormState extends State<SecurForm> {
   String? _accountName;
 
   String? stringValidator(String? value) {
-    return value.isNullOrBlank! ? 'Field cannot be empty!' : null;
+    return value.isBlank! ? 'Field cannot be empty!' : null;
   }
 
   AppBar appBar(BuildContext context) {
@@ -180,10 +180,10 @@ class _SecurFormState extends State<SecurForm> {
                       _formKey.currentState!.save();
                       TOTPController.to.saveTotp(
                         SecurTOTP(
-                          secret: _secret,
-                          algorithm: _algorithm,
-                          digits: _digits,
-                          interval: _interval,
+                          secret: _secret!,
+                          algorithm: _algorithm!,
+                          digits: _digits!,
+                          interval: _interval!,
                           issuer: _issuer,
                           accountName: _accountName,
                         ),

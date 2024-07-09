@@ -7,16 +7,16 @@ part 'securtotp.g.dart';
 @HiveType(typeId: 0)
 class SecurTOTP extends HiveObject {
   @HiveField(0)
-  final String? algorithm;
+  final String algorithm;
 
   @HiveField(1)
-  final int? digits;
+  final int digits;
 
   @HiveField(2)
-  final int? interval;
+  final int interval;
 
   @HiveField(3)
-  final String? secret;
+  final String secret;
 
   @HiveField(4)
   final String? issuer;
@@ -52,9 +52,9 @@ class SecurTOTP extends HiveObject {
   String getTotp() {
     return TOTP(
       algorithm: getAlgorithm(algorithm),
-      digits: digits!,
+      digits: digits,
       interval: interval,
-      secret: secret!,
+      secret: secret,
     ).now();
   }
 
