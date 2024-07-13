@@ -21,7 +21,7 @@ class Home extends StatelessWidget {
               ? null
               : buildFloatingActionButton(context),
           body: homeBody(context),
-          appBar: appBar(context, controller) as PreferredSizeWidget?,
+          appBar: appBar(context, controller) as PreferredSizeWidget,
         );
       },
     );
@@ -46,7 +46,53 @@ Widget appBar(BuildContext context, ItemSelectionController controller) {
               TextSpan(text: 'ur', style: TextStyle(color: textColor))
             ]),
       ),
-      actions: const <Widget>[],
+      actions: <Widget>[
+        PopupMenuButton(itemBuilder: (context) {
+          return [
+            PopupMenuItem(
+              child: ListTile(
+                leading: const Icon(Icons.upload_rounded),
+                title: const Text('Export backup'),
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Warning!'),
+                        content: const Text(
+                            'Your data will be exported in an unencrypted format. Do you still wish to proceed?'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            child: const Text('No'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            child: const Text('Yes'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+            PopupMenuItem(
+              child: ListTile(
+                leading: const Icon(Icons.download_rounded),
+                title: const Text('Import backup'),
+                onTap: () {
+                  // Get.toNamed('/settings');
+                },
+              ),
+            ),
+          ];
+        }),
+      ],
       centerTitle: true,
       elevation: 0,
     );
