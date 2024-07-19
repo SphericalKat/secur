@@ -13,9 +13,22 @@ class TOTPController extends GetxController {
     update();
   }
 
+  Future<void> saveAllTotps(List<SecurTOTP> totps) async {
+    await db.putAll({ for (var e in totps) e.secret : e });
+    update();
+  }
+
   void deleteTotps(Set<dynamic> totps) {
     db.deleteAll(totps);
     ItemSelectionController.to.removeAllItems();
     update();
+  }
+
+  List<SecurTOTP> getAllTotps() {
+    List<SecurTOTP> totps = [];
+    for (var i = 0; i < db.length; i++) {
+      totps.add(db.getAt(i));
+    }
+    return totps;
   }
 }

@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:secur/src/components/otp_item.dart';
 import 'package:secur/src/components/radio_row.dart';
+import 'package:secur/src/controllers/backup_controller.dart';
 import 'package:secur/src/controllers/item_selection_controller.dart';
 import 'package:secur/src/controllers/totp_controller.dart';
 import 'package:secur/src/services/barcode_scan.dart';
 import 'package:secur/src/themes/theme.dart';
+import 'package:secur/src/totp/utils/backup_result.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatelessWidget {
@@ -69,7 +71,13 @@ Widget appBar(BuildContext context, ItemSelectionController controller) {
                             child: const Text('No'),
                           ),
                           TextButton(
-                            onPressed: () {
+                            onPressed: () async {
+                              var result = await BackupController.to.backup();
+                              if (result is BackupResultError) {
+                                Get.snackbar('Error', result.message);
+                              } else {
+                                Get.snackbar('Success', 'Backup successful!');
+                              }
                               Get.back();
                             },
                             child: const Text('Yes'),
@@ -85,8 +93,14 @@ Widget appBar(BuildContext context, ItemSelectionController controller) {
               child: ListTile(
                 leading: const Icon(Icons.download_rounded),
                 title: const Text('Import backup'),
-                onTap: () {
-                  // Get.toNamed('/settings');
+                onTap: () async {
+                  var result = await BackupController.to.restore();
+                  if (result is BackupResultError) {
+                    Get.snackbar('Error', result.message);
+                  } else {
+                    Get.snackbar('Success', 'Restore successful!');
+                  }
+                  Get.back();
                 },
               ),
             ),

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:secur/src/controllers/backup_controller.dart';
 import 'package:secur/src/models/securtotp.dart';
 import 'package:secur/src/screens/formpage/secur_form.dart';
 import 'package:secur/src/screens/homescreen/home.dart';
@@ -23,6 +24,7 @@ void main() async {
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
   Get.put(prefs);
+  Get.put(BackupController());
 
   // attempt to fetch key from secure storage
   String? result = await storage.read(key: 'encryptionKey');
