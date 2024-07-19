@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:cross_file/cross_file.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
 import 'package:secur/src/controllers/totp_controller.dart';
 import 'package:secur/src/models/securtotp.dart';
 import 'package:secur/src/totp/utils/backup_result.dart';
-import 'package:path/path.dart' as p;
 
 class BackupController extends GetxController {
   static BackupController get to => Get.find();
@@ -56,7 +54,6 @@ class BackupController extends GetxController {
       final totps = backupJson.map((e) => SecurTOTP.fromJson(e)).toList();
       await TOTPController.to.saveAllTotps(totps);
     } catch (e) {
-      print(e);
       return BackupResultError("Error reading file: $e");
     }
 
