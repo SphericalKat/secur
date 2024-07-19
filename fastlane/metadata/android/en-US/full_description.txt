@@ -1,4 +1,4 @@
 Secur is a beautiful and Secure TOTP client app for 2FA, written in Flutter. All of your TOTP secrets are stored and encrypted on-device with strong AES256 encryption. Support for being able to sync secrets to the cloud is planned and will be added in the future.
 
 Want to collaborate or report a bug?
-https://gitlab.com/ATechnoHazard/secur
+https://github.com/SphericalKat/secur
