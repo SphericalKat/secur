@@ -27,7 +27,6 @@ class BackupController extends GetxController {
         return BackupResultError("No file selected!");
       }
     } catch (e) {
-      print(e);
       return BackupResultError("Error saving file: $e");
     }
 

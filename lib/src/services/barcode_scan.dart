@@ -41,18 +41,8 @@ void _showErrorSnackbar(String error) {
   Get.snackbar(
     'There seems to be a problem 😗',
     error,
-    barBlur: 100,
-    colorText: Colors.black87,
-    icon: const Icon(Icons.error_outline, color: Colors.red),
-    animationDuration: 1.seconds,
-    backgroundColor: Colors.white,
-    duration: 3.seconds,
-    margin: const EdgeInsets.only(top: 10),
-    borderRadius: 10,
-    maxWidth: 420,
-    isDismissible: true,
-    shouldIconPulse: false,
     snackPosition: SnackPosition.BOTTOM,
+    backgroundColor: Colors.red
   );
 }
 

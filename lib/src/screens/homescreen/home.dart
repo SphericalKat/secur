@@ -56,6 +56,7 @@ Widget appBar(BuildContext context, ItemSelectionController controller) {
                 leading: const Icon(Icons.upload_rounded),
                 title: const Text('Export backup'),
                 onTap: () {
+                  Navigator.pop(context);
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
@@ -71,14 +72,28 @@ Widget appBar(BuildContext context, ItemSelectionController controller) {
                             child: const Text('No'),
                           ),
                           TextButton(
-                            onPressed: () async {
-                              var result = await BackupController.to.backup();
-                              if (result is BackupResultError) {
-                                Get.snackbar('Error', result.message);
-                              } else {
-                                Get.snackbar('Success', 'Backup successful!');
-                              }
-                              Get.back();
+                            onPressed: () {
+                              BackupController.to.backup().then((result) {
+                                Navigator.pop(context);
+                                if (result is BackupResultError) {
+                                  Get.snackbar(
+                                    "Error",
+                                    result.message,
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    backgroundColor:
+                                        Theme.of(context).colorScheme.error,
+                                    colorText: Colors.white,
+                                  );
+                                } else {
+                                  Get.snackbar(
+                                    'Success',
+                                    'Backup successful!',
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    backgroundColor:
+                                        Theme.of(context).cardColor,
+                                  );
+                                }
+                              });
                             },
                             child: const Text('Yes'),
                           ),
@@ -93,14 +108,26 @@ Widget appBar(BuildContext context, ItemSelectionController controller) {
               child: ListTile(
                 leading: const Icon(Icons.download_rounded),
                 title: const Text('Import backup'),
-                onTap: () async {
-                  var result = await BackupController.to.restore();
-                  if (result is BackupResultError) {
-                    Get.snackbar('Error', result.message);
-                  } else {
-                    Get.snackbar('Success', 'Restore successful!');
-                  }
-                  Get.back();
+                onTap: () {
+                  Navigator.pop(context);
+                  BackupController.to.restore().then((result) {
+                    if (result is BackupResultError) {
+                      Get.snackbar(
+                        'Error',
+                        result.message,
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: Theme.of(context).colorScheme.error,
+                        colorText: Colors.white,
+                      );
+                    } else {
+                      Get.snackbar(
+                        'Success',
+                        'Restore successful!',
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: Theme.of(context).cardColor,
+                      );
+                    }
+                  });
                 },
               ),
             ),

@@ -109,10 +109,11 @@ class OTPItemState extends State<OTPItem> {
             } else {
               Clipboard.setData(ClipboardData(text: totp)).then(
                 (value) => Get.snackbar(
-                  'Done!',
+                  'Copied!',
                   'OTP has been copied to clipboard.',
                   snackPosition: SnackPosition.BOTTOM,
                   // colorText: Colors.black,
+                  backgroundColor: Theme.of(context).cardColor,
                 ),
               );
             }
